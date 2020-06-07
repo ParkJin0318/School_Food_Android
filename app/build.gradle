@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -33,5 +34,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava_version"
+
+    implementation "org.koin:koin-androidx-scope:$rootProject.koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$rootProject.koin_version"
+    implementation "org.koin:koin-androidx-ext:$rootProject.koin_version"
+
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    testImplementation "androidx.room:room-testing:$rootProject.room_version"
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3_version"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
+
+    implementation "com.google.android.material:material:$rootProject.material_version"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
 
 }
