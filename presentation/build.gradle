@@ -23,6 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -58,4 +62,6 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.material_version"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
 
+    implementation project(':domain')
+    implementation project(':data')
 }
