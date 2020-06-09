@@ -16,5 +16,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun init() { }
 
-    override fun observerViewModel() { }
+    override fun observerViewModel() {
+        with(viewModel) {
+
+        }
+    }
 }

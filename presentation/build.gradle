@@ -24,8 +24,8 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures{
+        dataBinding = true
     }
 }
 
@@ -48,11 +48,6 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$rootProject.koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$rootProject.koin_version"
     implementation "org.koin:koin-androidx-ext:$rootProject.koin_version"
-
-    kapt "androidx.room:room-compiler:$rootProject.room_version"
-    testImplementation "androidx.room:room-testing:$rootProject.room_version"
-    implementation "androidx.room:room-runtime:$rootProject.room_version"
-    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
 
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3_version"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
