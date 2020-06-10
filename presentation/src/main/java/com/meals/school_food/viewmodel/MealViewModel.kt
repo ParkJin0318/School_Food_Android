@@ -1,5 +1,6 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.meals.domain.dataSource.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
@@ -13,6 +14,9 @@ class MealViewModel(
         getMeal()
     }
 
+    val string = MutableLiveData<String>()
+    val check = MutableLiveData<Meal>()
+
     val mealList = ArrayList<Meal>()
 
     private fun getMeal() {
@@ -20,6 +24,7 @@ class MealViewModel(
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     mealList.add(t)
+                    check.value = t
                 }
                 override fun onError(e: Throwable) { }
             })

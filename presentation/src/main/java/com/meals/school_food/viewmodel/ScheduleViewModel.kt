@@ -1,5 +1,6 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.meals.domain.dataSource.GetScheduleUseCase
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
@@ -13,6 +14,9 @@ class ScheduleViewModel(
         getSchedule()
     }
 
+    val string = MutableLiveData<String>()
+    val check = MutableLiveData<Schedule>()
+
     val scheduleList = ArrayList<Schedule>()
 
     private fun getSchedule() {
@@ -20,6 +24,7 @@ class ScheduleViewModel(
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     scheduleList.add(t)
+                    check.value = t
                 }
                 override fun onError(e: Throwable) { }
             })

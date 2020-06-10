@@ -11,12 +11,15 @@ class MealFragment : BaseFragment<FragmentMealBinding, MealViewModel>() {
 
     override val viewModel: MealViewModel
         get() = getViewModel(MealViewModel::class)
+
     override val layoutRes: Int
         get() = R.layout.fragment_meal
 
     override fun observerViewModel() {
         with(viewModel) {
-            
+            check.observe(this@MealFragment, Observer {
+                string.value = mealList[0].meals[0]
+            })
         }
     }
 }
