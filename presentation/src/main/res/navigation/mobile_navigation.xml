@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_meal">
+
+    <fragment
+        android:id="@+id/navigation_meal"
+        android:name="com.meals.school_food.view.fragment.MealFragment"
+        android:label="@string/title_meal"
+        tools:layout="@layout/fragment_meal" />
+
+    <fragment
+        android:id="@+id/navigation_address"
+        android:name="com.meals.school_food.view.fragment.AddressFragment"
+        android:label="@string/title_address"
+        tools:layout="@layout/fragment_address" />
+
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.meals.school_food.view.fragment.ScheduleFragment"
+        android:label="@string/title_schedule"
+        tools:layout="@layout/fragment_schedule" />
+</navigation>

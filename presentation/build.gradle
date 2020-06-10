@@ -27,6 +27,13 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -56,6 +63,11 @@ dependencies {
 
     implementation "com.google.android.material:material:$rootProject.material_version"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
+
+    implementation "androidx.navigation:navigation-fragment:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-ui:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
 
     implementation project(':domain')
     implementation project(':data')
