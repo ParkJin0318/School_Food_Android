@@ -1,6 +1,7 @@
 package com.meals.school_food.widget
 
 import android.app.Application
+import com.meals.data.util.SharedPreferenceManager
 import com.meals.school_food.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -16,5 +17,7 @@ class Application : Application() {
                 remoteModule, dataSourceModule, repositoryModule, useCaseModule)
             modules(modules)
         }
+
+        SharedPreferenceManager.setSchoolId(applicationContext, "7240393")
     }
 }

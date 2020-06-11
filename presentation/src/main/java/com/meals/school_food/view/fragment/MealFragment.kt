@@ -1,6 +1,5 @@
 package com.meals.school_food.view.fragment
 
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseFragment
 import com.meals.school_food.databinding.FragmentMealBinding
@@ -17,9 +16,7 @@ class MealFragment : BaseFragment<FragmentMealBinding, MealViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            check.observe(this@MealFragment, Observer {
-                string.value = mealList[0].meals[0]
-            })
+
         }
     }
 }
