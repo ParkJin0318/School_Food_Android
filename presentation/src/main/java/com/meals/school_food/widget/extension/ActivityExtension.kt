@@ -11,9 +11,7 @@ fun AppCompatActivity.lightStatusBar() {
 }
 
 fun AppCompatActivity.startActivity(activity: Class<*>) {
-    val intent = Intent(this, activity)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivity(intent)
+    startActivity(Intent(this, activity).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
 }
 
 fun AppCompatActivity.toast(text : Int) {

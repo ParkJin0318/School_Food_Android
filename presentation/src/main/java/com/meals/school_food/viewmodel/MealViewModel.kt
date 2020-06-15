@@ -1,11 +1,13 @@
 package com.meals.school_food.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import com.meals.data.util.Constants
 import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.dataSource.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
+import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.recyclerview.MealAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.text.SimpleDateFormat
@@ -13,12 +15,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MealViewModel(
-    private val getMealUseCase: GetMealUseCase,
-    private val application: Application
+    private val application: Application,
+    private val getMealUseCase: GetMealUseCase
 ) : BaseViewModel() {
 
-    private val format = SimpleDateFormat("yyyyMMdd")
-    private val date = format.format(Date(System.currentTimeMillis()))
+    val searchEvent = SingleLiveEvent<Unit>()
+    val nullCheck = MutableLiveData<Boolean>(false)
 
     private val morningList = ArrayList<String>()
     private val lunchList = ArrayList<String>()
@@ -32,15 +34,26 @@ class MealViewModel(
         morningAdapter.setList(morningList)
         lunchAdapter.setList(lunchList)
         dinnerAdapter.setList(dinnerList)
-        getMeal()
+
+        getId()
     }
 
-    private fun getMeal() {
+    private fun getId() {
         val id = SharedPreferenceManager.getSchoolId(application)
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id.toString(), Constants.OFFICE_CODE, date)),
+        if (id != null) {
+            getMeal(id)
+        } else {
+            nullCheck.value = true
+            isLoading.value = true
+        }
+    }
+
+    private fun getMeal(id : String) {
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, today())),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addData(t)
+                    isLoading.value = true
                 }
                 override fun onError(e: Throwable) { }
             })
@@ -54,8 +67,15 @@ class MealViewModel(
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()
+    }
 
-        isLoading.value = true
+    private fun today() : String {
+        val format = SimpleDateFormat("yyyyMMdd")
+        return format.format(Date(System.currentTimeMillis()))
+    }
+
+    fun searchClick() {
+        searchEvent.call()
     }
 
 }

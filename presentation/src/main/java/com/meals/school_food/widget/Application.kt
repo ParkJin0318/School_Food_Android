@@ -17,7 +17,5 @@ class Application : Application() {
                 remoteModule, dataSourceModule, repositoryModule, useCaseModule)
             modules(modules)
         }
-
-        SharedPreferenceManager.setSchoolId(applicationContext, "7240393")
     }
 }
