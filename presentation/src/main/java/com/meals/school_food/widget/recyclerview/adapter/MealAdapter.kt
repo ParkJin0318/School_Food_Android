@@ -1,4 +1,4 @@
-package com.meals.school_food.widget.recyclerview
+package com.meals.school_food.widget.recyclerview.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.meals.school_food.R
 import com.meals.school_food.databinding.ItemMealBinding
+import com.meals.school_food.widget.recyclerview.viewmodel.MealItemViewModel
 
 class MealAdapter : RecyclerView.Adapter<MealAdapter.ViewHolder>(){
 
@@ -26,7 +27,14 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.ViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
-        return ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_meal, parent, false))
+        return ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_meal,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {

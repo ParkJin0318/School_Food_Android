@@ -13,5 +13,5 @@ fun Fragment.toast(message: Int) {
 }
 
 fun Fragment.startActivity(activity: Class<*>) {
-    startActivity(Intent(context!!.applicationContext, activity).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
+    startActivity(Intent(context!!.applicationContext, activity).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
 }

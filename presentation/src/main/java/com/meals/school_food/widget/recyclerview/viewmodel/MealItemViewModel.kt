@@ -1,9 +1,9 @@
-package com.meals.school_food.widget.recyclerview
+package com.meals.school_food.widget.recyclerview.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.meals.school_food.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class MealItemViewModel : BaseViewModel() {
+class MealItemViewModel : ViewModel() {
 
     val meal = MutableLiveData<String>()
 

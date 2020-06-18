@@ -8,8 +8,9 @@ import com.meals.domain.dataSource.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
-import com.meals.school_food.widget.recyclerview.MealAdapter
+import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import io.reactivex.observers.DisposableSingleObserver
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,7 +21,10 @@ class MealViewModel(
 ) : BaseViewModel() {
 
     val searchEvent = SingleLiveEvent<Unit>()
-    val nullCheck = MutableLiveData<Boolean>(false)
+    val nullCheck = MutableLiveData<Boolean>()
+
+    val date = MutableLiveData<String>()
+    val schoolName = MutableLiveData<String>()
 
     private val morningList = ArrayList<String>()
     private val lunchList = ArrayList<String>()
@@ -35,21 +39,24 @@ class MealViewModel(
         lunchAdapter.setList(lunchList)
         dinnerAdapter.setList(dinnerList)
 
-        getId()
+        getSchoolInformation()
     }
 
-    private fun getId() {
+    private fun getSchoolInformation() {
         val id = SharedPreferenceManager.getSchoolId(application)
-        if (id != null) {
-            getMeal(id)
-        } else {
+        schoolName.value = SharedPreferenceManager.getSchoolName(application)
+        date.value = todayDate("yyyy/MM/dd")
+
+        if(id == null) {
             nullCheck.value = true
             isLoading.value = true
+        } else {
+            getMeal(id)
         }
     }
 
     private fun getMeal(id : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, today())),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, todayDate("yyyyMMdd"))),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addData(t)
@@ -60,22 +67,29 @@ class MealViewModel(
     }
 
     private fun addData(t: Meal) {
-        morningList.addAll(t.meals[0].split("<br/>"))
-        lunchList.addAll(t.meals[1].split("<br/>"))
-        dinnerList.addAll(t.meals[2].split("<br/>"))
+        morningList.clear()
+        lunchList.clear()
+        dinnerList.clear()
+
+        try {
+            morningList.addAll(t.meals[0].split("<br/>"))
+            lunchList.addAll(t.meals[1].split("<br/>"))
+            dinnerList.addAll(t.meals[2].split("<br/>"))
+        } catch (e : Exception) {
+            e.printStackTrace()
+        }
 
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()
     }
 
-    private fun today() : String {
-        val format = SimpleDateFormat("yyyyMMdd")
+    private fun todayDate(pattern : String) : String {
+        val format = SimpleDateFormat(pattern)
         return format.format(Date(System.currentTimeMillis()))
     }
 
     fun searchClick() {
         searchEvent.call()
     }
-
 }
