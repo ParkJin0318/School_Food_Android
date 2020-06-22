@@ -21,8 +21,8 @@ class MealViewModel(
 ) : BaseViewModel() {
 
     val searchEvent = SingleLiveEvent<Unit>()
-    val nullCheck = MutableLiveData<Boolean>()
 
+    val information = MutableLiveData<String>()
     val date = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
 
@@ -43,15 +43,15 @@ class MealViewModel(
     }
 
     private fun getSchoolInformation() {
-        val id = SharedPreferenceManager.getSchoolId(application)
+        val schoolId = SharedPreferenceManager.getSchoolId(application)
         schoolName.value = SharedPreferenceManager.getSchoolName(application)
         date.value = todayDate("yyyy/MM/dd")
 
-        if(id == null) {
-            nullCheck.value = true
+        if(schoolId == null) {
+            information.value = "선택된 학교가 없습니다."
             isLoading.value = true
         } else {
-            getMeal(id)
+            getMeal(schoolId)
         }
     }
 
@@ -62,7 +62,10 @@ class MealViewModel(
                     addData(t)
                     isLoading.value = true
                 }
-                override fun onError(e: Throwable) { }
+                override fun onError(e: Throwable) {
+                    information.value = "급식이 없습니다."
+                    isLoading.value = true
+                }
             })
     }
 
@@ -78,7 +81,10 @@ class MealViewModel(
         } catch (e : Exception) {
             e.printStackTrace()
         }
+        notifyDataSetChanged()
+    }
 
+    private fun notifyDataSetChanged() {
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()

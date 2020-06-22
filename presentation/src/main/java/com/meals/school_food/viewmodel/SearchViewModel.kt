@@ -19,6 +19,8 @@ class SearchViewModel(
     val schoolAdapter = SchoolAdapter()
     val schoolList = ArrayList<DetailSearch>()
 
+    val completeEvent = SingleLiveEvent<Unit>()
+
     init {
         schoolAdapter.setList(schoolList)
     }
@@ -28,6 +30,7 @@ class SearchViewModel(
             object : DisposableSingleObserver<Search>() {
                 override fun onSuccess(t: Search) {
                     addData(t)
+                    completeEvent.call()
                 }
                 override fun onError(e: Throwable) { }
             })

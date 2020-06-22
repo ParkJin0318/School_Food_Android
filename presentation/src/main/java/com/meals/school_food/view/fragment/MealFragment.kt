@@ -23,9 +23,6 @@ class MealFragment : BaseFragment<FragmentMealBinding, MealViewModel>() {
             searchEvent.observe(this@MealFragment, Observer {
                 startActivity(SearchActivity::class.java)
             })
-            nullCheck.observe(this@MealFragment, Observer {
-                toast(R.string.select_error)
-            })
         }
     }
 }

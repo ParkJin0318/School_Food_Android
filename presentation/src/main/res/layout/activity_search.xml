@@ -5,6 +5,8 @@
     tools:context=".view.activity.SearchActivity">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.meals.school_food.viewmodel.SearchViewModel"/>
@@ -19,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:background="@drawable/round_white"
+            android:background="@drawable/round_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -50,12 +52,30 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="70dp"
-            app:adapter="@{viewModel.schoolAdapter}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_school"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.schoolAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_school"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
