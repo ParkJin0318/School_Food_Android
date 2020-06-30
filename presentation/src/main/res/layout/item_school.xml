@@ -38,7 +38,6 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:background="@drawable/round_primary"
-                        android:padding="5dp"
                         android:textSize="12dp"
                         android:text="@string/school_name"
                         android:textColor="@color/colorWhite"
@@ -52,9 +51,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="12dp"
                         android:background="@drawable/round_gray"
-                        android:padding="5dp"
                         android:textSize="12dp"
-                        android:text="@string/title_address"
+                        android:text="@string/school_address"
                         android:textColor="@color/colorWhite"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />

@@ -29,7 +29,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             schoolAdapter.click.observe(this@SearchActivity, Observer {
                 SharedPreferenceManager.setSchoolId(application, schoolList[schoolAdapter.click.value!!].school_id)
                 SharedPreferenceManager.setSchoolName(application, schoolList[schoolAdapter.click.value!!].school_name)
-                startActivity(MenuActivity::class.java)
+                startActivity(MainActivity::class.java)
             })
             completeEvent.observe(this@SearchActivity, Observer {
                 binding.progressBar.visibility = View.GONE

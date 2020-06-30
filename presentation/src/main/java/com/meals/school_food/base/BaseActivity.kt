@@ -9,7 +9,6 @@ import com.meals.school_food.BR
 abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
 
     protected lateinit var binding : VB
-
     protected abstract val viewModel : VM
     protected abstract val layoutRes : Int
 

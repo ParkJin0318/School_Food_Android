@@ -10,17 +10,15 @@ import androidx.fragment.app.Fragment
 import com.meals.school_food.BR
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
-    protected lateinit var mBinding: VB
-    protected lateinit var mViewModel: VM
-
+    protected lateinit var binding: VB
     protected abstract val viewModel: VM
     protected abstract val layoutRes: Int
 
     protected abstract fun observerViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = DataBindingUtil.inflate(inflater, layoutRes, container, false)!!
-        return mBinding.root
+        binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)!!
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,9 +28,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     private fun viewModelProvider() {
-        mViewModel = if (::mViewModel.isInitialized) mViewModel else viewModel
-        mBinding.setVariable(BR.viewModel, mViewModel)
-        mBinding.lifecycleOwner = this
-        mBinding.executePendingBindings()
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.lifecycleOwner = this
+        binding.executePendingBindings()
     }
 }

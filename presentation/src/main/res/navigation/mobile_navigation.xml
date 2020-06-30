@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_meal">
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.meals.school_food.view.fragment.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_meal"
@@ -12,14 +18,14 @@
         tools:layout="@layout/fragment_meal" />
 
     <fragment
-        android:id="@+id/navigation_address"
-        android:name="com.meals.school_food.view.fragment.AddressFragment"
-        android:label="@string/title_address"
-        tools:layout="@layout/fragment_address" />
-
-    <fragment
         android:id="@+id/navigation_schedule"
         android:name="com.meals.school_food.view.fragment.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/navigation_menu"
+        android:name="com.meals.school_food.view.fragment.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu" />
 </navigation>

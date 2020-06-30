@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.meals.domain.model.DetailSearch
+import com.meals.domain.model.SchoolInformation
 import com.meals.school_food.R
 import com.meals.school_food.databinding.ItemSchoolBinding
 import com.meals.school_food.widget.recyclerview.viewmodel.SchoolItemViewModel
 
 class SchoolAdapter : RecyclerView.Adapter<SchoolAdapter.ViewHolder>(){
 
-    private lateinit var schoolList : ArrayList<DetailSearch>
+    private lateinit var schoolList : ArrayList<SchoolInformation>
     val click = MutableLiveData<Int>()
 
-    fun setList(list : ArrayList<DetailSearch>) {
+    fun setList(list : ArrayList<SchoolInformation>) {
         if(::schoolList.isInitialized) return
         schoolList = list
     }
@@ -23,7 +23,7 @@ class SchoolAdapter : RecyclerView.Adapter<SchoolAdapter.ViewHolder>(){
     class ViewHolder(private val binding : ItemSchoolBinding) : RecyclerView.ViewHolder(binding.root) {
         private val viewModel = SchoolItemViewModel()
 
-        fun bind(detailSearch: DetailSearch) {
+        fun bind(detailSearch: SchoolInformation) {
             binding.teName.isSelected = true
             binding.teAddress.isSelected = true
 

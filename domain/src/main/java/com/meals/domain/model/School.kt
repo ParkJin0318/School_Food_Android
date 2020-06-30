@@ -1,10 +1,10 @@
 package com.meals.domain.model
 
-data class Search(
-    val schools: List<DetailSearch>
+data class School(
+    val schools: List<SchoolInformation>
 )
 
-data class DetailSearch(
+data class SchoolInformation(
     val school_name: String,
     val school_locate: String,
     val office_code: String,

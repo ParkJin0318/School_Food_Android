@@ -1,16 +1,14 @@
 package com.meals.school_food.di
 
-import com.meals.school_food.viewmodel.AddressViewModel
-import com.meals.school_food.viewmodel.MealViewModel
-import com.meals.school_food.viewmodel.ScheduleViewModel
-import com.meals.school_food.viewmodel.SearchViewModel
+import com.meals.school_food.viewmodel.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { MealViewModel(androidApplication(), get()) }
-    viewModel { AddressViewModel(get()) }
+    viewModel { HomeViewModel(androidApplication(), get()) }
+    viewModel { MealViewModel() }
     viewModel { ScheduleViewModel(get()) }
+    viewModel { MenuViewModel() }
     viewModel { SearchViewModel(get()) }
 }

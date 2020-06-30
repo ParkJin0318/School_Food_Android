@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.meals.school_food.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
-class MenuActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
