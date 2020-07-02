@@ -14,6 +14,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val viewModel: HomeViewModel
         get() = getViewModel()
+
     override val layoutRes: Int
         get() = R.layout.fragment_home
 

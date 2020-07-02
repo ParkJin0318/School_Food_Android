@@ -14,8 +14,5 @@ class MealFragment : BaseFragment<FragmentMealBinding, MealViewModel>() {
     override val layoutRes: Int
         get() = R.layout.fragment_meal
 
-    override fun observerViewModel() {
-
-    }
-
+    override fun observerViewModel() { }
 }

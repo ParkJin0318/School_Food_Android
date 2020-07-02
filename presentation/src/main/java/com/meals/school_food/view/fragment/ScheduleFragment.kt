@@ -1,6 +1,5 @@
 package com.meals.school_food.view.fragment
 
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseFragment
 import com.meals.school_food.databinding.FragmentScheduleBinding
@@ -16,10 +15,8 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
         get() = R.layout.fragment_schedule
 
     override fun observerViewModel() {
-        with(viewModel) {
-            check.observe(this@ScheduleFragment, Observer {
-                string.value = scheduleList[0].schedules[0].name
-            })
+        binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            viewModel.calendarClick(year, month, dayOfMonth)
         }
     }
 }

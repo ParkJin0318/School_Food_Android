@@ -34,9 +34,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="@{viewModel.date}"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/round_primary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2020년 07월 01일"/>
 
                 <TextView
                     android:id="@+id/textView12"
@@ -44,9 +47,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:text="@{viewModel.name}"
+                    android:textColor="@color/colorBlack"
                     app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="@+id/textView7" />
+                    app:layout_constraintTop_toTopOf="@+id/textView7"
+                    tools:text="토요일 휴업"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

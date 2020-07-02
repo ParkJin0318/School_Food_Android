@@ -11,6 +11,7 @@ import com.meals.domain.model.Meal
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.extension.getDate
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
@@ -57,7 +58,7 @@ class HomeViewModel(
     private fun getSchoolInformation() {
         val schoolId = SharedPreferenceManager.getSchoolId(application)
         schoolName.value = SharedPreferenceManager.getSchoolName(application)
-        date.value = todayDate("yyyy/MM/dd")
+        date.value = getDate("yyyy/MM/dd")
 
         if(schoolId == null) {
             schoolName.value = "선택된 학교가 없습니다"
@@ -70,7 +71,7 @@ class HomeViewModel(
     }
 
     private fun getMeal(id : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, todayDate("yyyyMMdd"))),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, getDate("yyyyMMdd"))),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)
@@ -101,7 +102,7 @@ class HomeViewModel(
     }
 
     private fun getSchedule(id : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, Constants.OFFICE_CODE, todayDate("yyyyMM"))),
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, Constants.OFFICE_CODE, getDate("yyyyMM"))),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     addScheduleData(t)
@@ -118,11 +119,6 @@ class HomeViewModel(
             scheduleList.add(item)
         }
         scheduleAdapter.notifyDataSetChanged()
-    }
-
-    private fun todayDate(pattern : String) : String {
-        val format = SimpleDateFormat(pattern)
-        return format.format(Date(System.currentTimeMillis()))
     }
 
     fun searchClick() {

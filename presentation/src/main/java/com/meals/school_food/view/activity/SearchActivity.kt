@@ -18,21 +18,18 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     override val layoutRes: Int
         get() = R.layout.activity_search
 
-    override fun init() { }
-
     override fun observerViewModel() {
         with(viewModel) {
             searchEvent.observe(this@SearchActivity, Observer {
-                this.getSchools()
+                getSchools()
                 binding.progressBar.visibility = View.VISIBLE
-            })
-            schoolAdapter.click.observe(this@SearchActivity, Observer {
-                SharedPreferenceManager.setSchoolId(application, schoolList[schoolAdapter.click.value!!].school_id)
-                SharedPreferenceManager.setSchoolName(application, schoolList[schoolAdapter.click.value!!].school_name)
-                startActivity(MainActivity::class.java)
             })
             completeEvent.observe(this@SearchActivity, Observer {
                 binding.progressBar.visibility = View.GONE
+            })
+            schoolAdapter.click.observe(this@SearchActivity, Observer {
+                setSchoolData(application)
+                startActivity(MainActivity::class.java)
             })
         }
     }

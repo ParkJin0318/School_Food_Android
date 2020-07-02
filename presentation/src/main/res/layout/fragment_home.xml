@@ -213,7 +213,6 @@
                     android:id="@+id/recyclerView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
                     android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
                     app:adapter="@{viewModel.scheduleAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

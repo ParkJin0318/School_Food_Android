@@ -1,6 +1,8 @@
 package com.meals.school_food.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.dataSource.GetSchoolUseCase
 import com.meals.domain.model.SchoolInformation
 import com.meals.domain.model.School
@@ -42,6 +44,11 @@ class SearchViewModel(
             schoolList.add(SchoolInformation(item.school_name, item.school_locate, item.office_code, item.school_id))
         }
         schoolAdapter.notifyDataSetChanged()
+    }
+
+    fun setSchoolData(application : Application) {
+        SharedPreferenceManager.setSchoolId(application, schoolList[schoolAdapter.click.value!!].school_id)
+        SharedPreferenceManager.setSchoolName(application, schoolList[schoolAdapter.click.value!!].school_name)
     }
 
     fun searchClick() {

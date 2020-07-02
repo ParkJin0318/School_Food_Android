@@ -12,7 +12,7 @@
         android:top="5dp" />
 
     <corners
-        android:radius="20dp"/>
+        android:radius="10dp"/>
 
     <stroke
         android:width="2dp"

@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout"
@@ -30,7 +31,6 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:onClick="@{()->viewModel.searchClick()}"
                 android:src="?android:attr/actionModeWebSearchDrawable"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -41,12 +41,11 @@
                 android:id="@+id/te_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:hint="@string/input_search_word"
+                android:background="@null"
+                android:hint="@string/input_school_name"
                 android:singleLine="true"
                 android:text="@={viewModel.word}"
                 android:textSize="14dp"
-                android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

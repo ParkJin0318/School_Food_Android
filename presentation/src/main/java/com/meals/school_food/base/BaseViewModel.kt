@@ -12,6 +12,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class BaseViewModel : ViewModel() {
 
@@ -33,6 +35,11 @@ open class BaseViewModel : ViewModel() {
 
     fun getIsLoading() : LiveData<Boolean> {
         return isLoading
+    }
+
+    fun getDate(pattern : String) : String {
+        val format = SimpleDateFormat(pattern)
+        return format.format(Date(System.currentTimeMillis()))
     }
 
     override fun onCleared() {

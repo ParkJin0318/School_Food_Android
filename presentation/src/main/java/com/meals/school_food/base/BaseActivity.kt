@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.meals.school_food.BR
+import com.meals.school_food.widget.extension.lightStatusBar
 
 abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
 
@@ -12,13 +13,12 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected abstract val viewModel : VM
     protected abstract val layoutRes : Int
 
-    protected abstract fun init()
     protected abstract fun observerViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lightStatusBar()
         performDataBinding()
-        init()
         observerViewModel()
     }
 
