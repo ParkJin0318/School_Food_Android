@@ -26,7 +26,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 viewModel.isLoading.value = false
             })
             schoolAdapter.click.observe(this@SearchActivity, Observer {
-                setSchoolData(application)
+                setSchoolInformation(application)
                 startActivity(MainActivity::class.java)
             })
         }

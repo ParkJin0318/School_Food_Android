@@ -9,6 +9,6 @@ val viewModelModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
     viewModel { MealViewModel(androidApplication(), get()) }
     viewModel { ScheduleViewModel(androidApplication(), get()) }
-    viewModel { MenuViewModel() }
+    viewModel { MenuViewModel(androidApplication()) }
     viewModel { SearchViewModel(get()) }
 }

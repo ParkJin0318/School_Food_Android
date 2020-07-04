@@ -51,24 +51,30 @@ class HomeViewModel(
         dinnerAdapter.setList(dinnerList)
         scheduleAdapter.setList(scheduleList)
 
+        date.value = getDate("yyyy년 M월 d일")
         getSchoolInformation()
     }
 
     private fun getSchoolInformation() {
-        date.value = getDate("yyyy년 M월 d일")
-        schoolName.value = SharedPreferenceManager.getSchoolName(application)
-
-        SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null) {
-                getMeal(it)
-                getSchedule(it)
-            } else {
-                schoolName.value = "선택된 학교가 없습니다"
-                mealCheck.value = "선택된 학교가 없습니다"
-                scheduleCheck.value = "선택된 학교가 없습니다"
-                isLoading.value = true
-            }
+        SharedPreferenceManager.getSchoolName(application).let {
+            if (it != null) schoolName.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
         }
+        SharedPreferenceManager.getSchoolId(application).let {
+            if (it != null) foundSchool(it)
+            else notFoundSchoolId("선택된 학교가 없습니다")
+        }
+    }
+
+    private fun foundSchool(id : String) {
+        getMeal(id)
+        getSchedule(id)
+    }
+
+    private fun notFoundSchoolId(text : String) {
+        mealCheck.value = text
+        scheduleCheck.value = text
+        isLoading.value = true
     }
 
     private fun getMeal(id : String) {

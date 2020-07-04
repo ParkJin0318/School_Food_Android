@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 object SharedPreferenceManager {
     private const val PREF_SCHOOL_ID = "school_id"
     private const val PREF_SCHOOL_NAME = "school_name"
+    private const val PREF_SCHOOL_ADDRESS = "school_address"
 
     fun setSchoolId(context: Context, schoolId: String) {
         getDefaultSharedPreferences(context).edit().putString(PREF_SCHOOL_ID, schoolId).apply()
@@ -29,6 +30,18 @@ object SharedPreferenceManager {
 
     fun getSchoolName(context: Context): String? {
         return getDefaultSharedPreferences(context).getString(PREF_SCHOOL_NAME, null)
+    }
+
+    fun setSchoolAddress(context: Context, schoolAddress: String) {
+        getDefaultSharedPreferences(context).edit().putString(PREF_SCHOOL_ADDRESS, schoolAddress).apply()
+    }
+
+    fun deleteSchoolAddress(context: Context) {
+        getDefaultSharedPreferences(context).edit().remove(PREF_SCHOOL_ADDRESS).apply()
+    }
+
+    fun getSchoolAddress(context: Context): String? {
+        return getDefaultSharedPreferences(context).getString(PREF_SCHOOL_ADDRESS, null)
     }
 
     fun getDefaultSharedPreferences(context: Context): SharedPreferences {

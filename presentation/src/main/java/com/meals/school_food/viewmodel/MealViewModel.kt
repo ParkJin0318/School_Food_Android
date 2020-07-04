@@ -17,7 +17,7 @@ class MealViewModel(
     private val getMealUseCase: GetMealUseCase
 ) : BaseViewModel() {
 
-    val schoolId = MutableLiveData<String>()
+    private val schoolId = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
     val date = MutableLiveData<String>()
     val mealCheck = MutableLiveData<String>()
@@ -37,22 +37,29 @@ class MealViewModel(
         lunchAdapter.setList(lunchList)
         dinnerAdapter.setList(dinnerList)
 
+        date.value = getDate("yyyy년 MM월 dd일")
         getSchoolInformation()
     }
 
     private fun getSchoolInformation() {
-        date.value = getDate("yyyy년 MM월 dd일")
-        schoolName.value = SharedPreferenceManager.getSchoolName(application)
-        SharedPreferenceManager.getSchoolId(application).let {
-            if (it == null) {
-                schoolName.value = "선택된 학교가 없습니다"
-                mealCheck.value = "선택된 학교가 없습니다"
-                isLoading.value = true
-            } else {
-                schoolId.value = it
-                getMeal(getDateFormat(date.value.toString()))
-            }
+        SharedPreferenceManager.getSchoolName(application).let {
+            if (it != null) schoolName.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
         }
+        SharedPreferenceManager.getSchoolId(application).let {
+            if (it != null)  foundSchool(it)
+            else notFoundSchoolId("선택된 학교가 없습니다")
+        }
+    }
+
+    private fun foundSchool(id : String) {
+        schoolId.value = id
+        getMeal(getDateFormat(date.value.toString()))
+    }
+
+    private fun notFoundSchoolId(text : String) {
+        mealCheck.value = text
+        isLoading.value = true
     }
 
     private fun getMeal(date : String) {
@@ -96,12 +103,7 @@ class MealViewModel(
         isLoading.value = false
         mealCheck.value = null
     }
-
-    private fun getDateFormat(scheduleDate : String) : String {
-        val strToDate = SimpleDateFormat("yyyy년 MM월 dd일").parse(scheduleDate)
-        return SimpleDateFormat("yyyyMMdd").format(strToDate)
-    }
-
+    
     private fun clearMeal() {
         morningList.clear()
         lunchList.clear()
@@ -112,6 +114,11 @@ class MealViewModel(
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()
+    }
+
+    private fun getDateFormat(scheduleDate : String) : String {
+        val strToDate = SimpleDateFormat("yyyy년 MM월 dd일").parse(scheduleDate)
+        return SimpleDateFormat("yyyyMMdd").format(strToDate)
     }
 
     fun dateClick() {
