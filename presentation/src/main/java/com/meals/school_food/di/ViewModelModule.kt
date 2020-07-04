@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
-    viewModel { MealViewModel() }
+    viewModel { MealViewModel(androidApplication(), get()) }
     viewModel { ScheduleViewModel(androidApplication(), get()) }
     viewModel { MenuViewModel() }
     viewModel { SearchViewModel(get()) }

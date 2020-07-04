@@ -1,8 +1,6 @@
 package com.meals.school_food.view.activity
 
-import android.view.View
 import androidx.lifecycle.Observer
-import com.meals.data.util.SharedPreferenceManager
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseActivity
 import com.meals.school_food.databinding.ActivitySearchBinding
@@ -22,10 +20,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         with(viewModel) {
             searchEvent.observe(this@SearchActivity, Observer {
                 getSchools()
-                binding.progressBar.visibility = View.VISIBLE
+                viewModel.isLoading.value = true
             })
             completeEvent.observe(this@SearchActivity, Observer {
-                binding.progressBar.visibility = View.GONE
+                viewModel.isLoading.value = false
             })
             schoolAdapter.click.observe(this@SearchActivity, Observer {
                 setSchoolData(application)

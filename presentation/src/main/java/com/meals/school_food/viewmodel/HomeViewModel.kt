@@ -1,6 +1,7 @@
 package com.meals.school_food.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.meals.data.util.Constants
 import com.meals.data.util.SharedPreferenceManager
@@ -11,13 +12,9 @@ import com.meals.domain.model.Meal
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
-import com.meals.school_food.widget.extension.getDate
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
-import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeViewModel(
@@ -26,10 +23,12 @@ class HomeViewModel(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
 
-    val check = MutableLiveData<String>("아침")
+    val time = MutableLiveData<String>("아침")
     val date = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
-    val information = MutableLiveData<String>()
+
+    val mealCheck = MutableLiveData<String>()
+    val scheduleCheck = MutableLiveData<String>()
 
     val searchEvent = SingleLiveEvent<Unit>()
     val morningEvent = SingleLiveEvent<Unit>()
@@ -56,17 +55,19 @@ class HomeViewModel(
     }
 
     private fun getSchoolInformation() {
-        val schoolId = SharedPreferenceManager.getSchoolId(application)
+        date.value = getDate("yyyy년 M월 d일")
         schoolName.value = SharedPreferenceManager.getSchoolName(application)
-        date.value = getDate("yyyy/MM/dd")
 
-        if(schoolId == null) {
-            schoolName.value = "선택된 학교가 없습니다"
-            information.value = "선택된 학교가 없습니다"
-            isLoading.value = true
-        } else {
-            getMeal(schoolId)
-            getSchedule(schoolId)
+        SharedPreferenceManager.getSchoolId(application).let {
+            if (it != null) {
+                getMeal(it)
+                getSchedule(it)
+            } else {
+                schoolName.value = "선택된 학교가 없습니다"
+                mealCheck.value = "선택된 학교가 없습니다"
+                scheduleCheck.value = "선택된 학교가 없습니다"
+                isLoading.value = true
+            }
         }
     }
 
@@ -78,27 +79,10 @@ class HomeViewModel(
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-                    information.value = "급식이 없습니다"
+                    mealCheck.value = "급식이 없습니다"
                     isLoading.value = true
                 }
             })
-    }
-
-    private fun addMealData(t: Meal) {
-        morningList.clear()
-        lunchList.clear()
-        dinnerList.clear()
-
-        try {
-            morningList.addAll(t.meals[0].split("<br/>"))
-            lunchList.addAll(t.meals[1].split("<br/>"))
-            dinnerList.addAll(t.meals[2].split("<br/>"))
-        } catch (e : Exception) {
-            e.printStackTrace()
-        }
-        morningAdapter.notifyDataSetChanged()
-        lunchAdapter.notifyDataSetChanged()
-        dinnerAdapter.notifyDataSetChanged()
     }
 
     private fun getSchedule(id : String) {
@@ -109,12 +93,35 @@ class HomeViewModel(
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-
+                    scheduleCheck.value = "학사일정이 없습니다"
+                    isLoading.value = true
                 }
             })
     }
 
+    private fun addMealData(t: Meal) {
+        morningList.clear()
+        lunchList.clear()
+        dinnerList.clear()
+
+        for (i in 0..2) {
+            t.meals[i].let {
+                if (it != null) {
+                    when(i) {
+                        0 -> morningList.addAll(it.split("<br/>"))
+                        1 -> lunchList.addAll(it.split("<br/>"))
+                        2 -> dinnerList.addAll(it.split("<br/>"))
+                    }
+                }
+            }
+        }
+        morningAdapter.notifyDataSetChanged()
+        lunchAdapter.notifyDataSetChanged()
+        dinnerAdapter.notifyDataSetChanged()
+    }
+
     private fun addScheduleData(t: Schedule) {
+        scheduleList.clear()
         for (item in t.schedules) {
             scheduleList.add(item)
         }

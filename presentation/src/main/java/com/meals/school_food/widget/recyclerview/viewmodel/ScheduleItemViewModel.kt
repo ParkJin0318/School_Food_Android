@@ -17,6 +17,6 @@ class ScheduleItemViewModel : ViewModel() {
 
     private fun getDateFormat(scheduleDate : String) : String {
         val strToDate = SimpleDateFormat("yyyyMMdd").parse(scheduleDate)
-        return SimpleDateFormat("yyyy년 MM월 dd일").format(strToDate)
+        return SimpleDateFormat("yyyy년 M월 d일").format(strToDate)
     }
 }

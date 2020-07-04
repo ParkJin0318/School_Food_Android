@@ -21,6 +21,7 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.ViewHolder>(){
         private val viewModel = MealItemViewModel()
 
         fun bind(meal: String) {
+            binding.teMeal.isSelected = true
             viewModel.bind(meal)
             binding.viewModel = viewModel
         }

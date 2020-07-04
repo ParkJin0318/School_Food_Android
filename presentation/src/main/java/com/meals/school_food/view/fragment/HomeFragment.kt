@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             morningEvent.observe(this@HomeFragment, Observer {
                 with(binding) {
                     recyclerView.adapter = morningAdapter
-                    check.value = getString(R.string.morning)
+                    time.value = getString(R.string.morning)
                     morning.setBackgroundResource(R.drawable.round_primary)
                     morning.setTextColor(getColor(R.color.colorWhite))
                     lunch.setBackgroundResource(R.drawable.round_border)
@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             lunchEvent.observe(this@HomeFragment, Observer {
                 with(binding) {
                     recyclerView.adapter = lunchAdapter
-                    check.value = getString(R.string.lunch)
+                    time.value = getString(R.string.lunch)
                     morning.setBackgroundResource(R.drawable.round_border)
                     morning.setTextColor(getColor(R.color.colorBlack))
                     lunch.setBackgroundResource(R.drawable.round_primary)
@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             dinerEvent.observe(this@HomeFragment, Observer {
                 with(binding) {
                     recyclerView.adapter = dinnerAdapter
-                    check.value = getString(R.string.diner)
+                    time.value = getString(R.string.diner)
                     morning.setBackgroundResource(R.drawable.round_border)
                     morning.setTextColor(getColor(R.color.colorBlack))
                     lunch.setBackgroundResource(R.drawable.round_border)

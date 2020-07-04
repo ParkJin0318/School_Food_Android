@@ -8,7 +8,6 @@ import com.meals.domain.dataSource.GetScheduleUseCase
 import com.meals.domain.model.DetailSchedule
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
-import com.meals.school_food.widget.extension.getDate
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.text.SimpleDateFormat
@@ -35,7 +34,7 @@ class ScheduleViewModel(
         schoolId.value = SharedPreferenceManager.getSchoolId(application)
         schoolName.value = SharedPreferenceManager.getSchoolName(application)
 
-        if(schoolId.value == null) {
+        if (schoolId.value == null) {
             schoolName.value = "선택된 학교가 없습니다"
             information.value = "선택된 학교가 없습니다"
             isLoading.value = true
@@ -46,23 +45,23 @@ class ScheduleViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(schoolId.value.toString(), Constants.OFFICE_CODE, date)),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
-                    successEvent(t)
+                    addScheduleData(t)
+                    isLoading.value = true
+                    information.value = null
                 }
                 override fun onError(e: Throwable) {
-                    isLoading.value = true
                     information.value = "학사일정이 없습니다"
+                    isLoading.value = true
                 }
             })
     }
 
-    private fun successEvent(t: Schedule) {
+    private fun addScheduleData(t: Schedule) {
         scheduleList.clear()
         for (item in t.schedules) {
             scheduleList.add(item)
         }
         scheduleAdapter.notifyDataSetChanged()
-        isLoading.value = true
-        information.value = null
     }
 
     fun calendarClick(year : Int, month : Int, day : Int) {

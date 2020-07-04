@@ -16,9 +16,15 @@
         android:layout_marginBottom="3dp">
 
         <TextView
+            android:id="@+id/te_meal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.meal}"
+            android:background="@null"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
             android:textColor="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
