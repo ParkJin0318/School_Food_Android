@@ -19,6 +19,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun observerViewModel() {
+        binding.teSchoolName.isSelected = true
+
         with(viewModel) {
             searchEvent.observe(this@HomeFragment, Observer {
                 startActivity(SearchActivity::class.java)

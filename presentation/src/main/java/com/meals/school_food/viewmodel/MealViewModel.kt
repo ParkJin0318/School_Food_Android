@@ -18,10 +18,11 @@ class MealViewModel(
 ) : BaseViewModel() {
 
     private val schoolId = MutableLiveData<String>()
+    private val officeCode = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
+
     val date = MutableLiveData<String>()
     val mealCheck = MutableLiveData<String>()
-
     val dateEvent = SingleLiveEvent<Unit>()
 
     val morningAdapter = MealAdapter()
@@ -46,13 +47,17 @@ class MealViewModel(
             if (it != null) schoolName.value = it
             else schoolName.value = "선택된 학교가 없습니다"
         }
+        SharedPreferenceManager.getOfficeCode(application).let {
+            if (it != null) officeCode.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
+        }
         SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null)  foundSchool(it)
+            if (it != null)  foundSchoolId(it)
             else notFoundSchoolId("선택된 학교가 없습니다")
         }
     }
 
-    private fun foundSchool(id : String) {
+    private fun foundSchoolId(id : String) {
         schoolId.value = id
         getMeal(getDateFormat(date.value.toString()))
     }
@@ -63,7 +68,7 @@ class MealViewModel(
     }
 
     private fun getMeal(date : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(schoolId.value.toString(), Constants.OFFICE_CODE, date)),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(schoolId.value.toString(), officeCode.value!!, date)),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)
@@ -80,14 +85,12 @@ class MealViewModel(
         clearMeal()
 
         for (i in 0..2) {
-            t.meals[i].let { it->
-                it?.split("<br/>").let {
-                    if (it != null) {
-                        when (i) {
-                            0 -> morningList.addAll(it)
-                            1 -> lunchList.addAll(it)
-                            2 -> dinnerList.addAll(it)
-                        }
+            t.meals[i].let {
+                if (it != null) {
+                    when(i) {
+                        0 -> morningList.addAll(it.split("<br/>"))
+                        1 -> lunchList.addAll(it.split("<br/>"))
+                        2 -> dinnerList.addAll(it.split("<br/>"))
                     }
                 }
             }

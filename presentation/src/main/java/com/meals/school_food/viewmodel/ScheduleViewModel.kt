@@ -18,6 +18,7 @@ class ScheduleViewModel(
 ) : BaseViewModel() {
 
     private val schoolId = MutableLiveData<String>()
+    private val officeCode = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
     val information = MutableLiveData<String>()
 
@@ -25,29 +26,39 @@ class ScheduleViewModel(
     val scheduleAdapter = ScheduleAdapter()
 
     init {
-        getSchoolInformation()
         scheduleAdapter.setList(scheduleList)
+
+        getSchoolInformation()
         getSchedule(getDate("yyyyMMdd"))
     }
 
     private fun getSchoolInformation() {
-        schoolId.value = SharedPreferenceManager.getSchoolId(application)
-        schoolName.value = SharedPreferenceManager.getSchoolName(application)
-
-        if (schoolId.value == null) {
-            schoolName.value = "선택된 학교가 없습니다"
-            information.value = "선택된 학교가 없습니다"
-            isLoading.value = true
+        SharedPreferenceManager.getSchoolId(application).let {
+            if (it != null) schoolId.value = it
+            else notFoundSchoolId("선택된 학교가 없습니다")
+        }
+        SharedPreferenceManager.getOfficeCode(application).let {
+            if (it != null) officeCode.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
+        }
+        SharedPreferenceManager.getSchoolName(application).let {
+            if (it != null) schoolName.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
         }
     }
 
+    private fun notFoundSchoolId(text : String) {
+        information.value = text
+        isLoading.value = true
+    }
+
     private fun getSchedule(date : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(schoolId.value.toString(), Constants.OFFICE_CODE, date)),
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(schoolId.value!!, officeCode.value!!, date)),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     addScheduleData(t)
-                    isLoading.value = true
                     information.value = null
+                    isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
                     information.value = "학사일정이 없습니다"

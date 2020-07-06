@@ -23,10 +23,11 @@ class HomeViewModel(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
 
+    val schoolName = MutableLiveData<String>()
+    private val officeCode = MutableLiveData<String>()
+
     val time = MutableLiveData<String>("아침")
     val date = MutableLiveData<String>()
-    val schoolName = MutableLiveData<String>()
-
     val mealCheck = MutableLiveData<String>()
     val scheduleCheck = MutableLiveData<String>()
 
@@ -60,13 +61,17 @@ class HomeViewModel(
             if (it != null) schoolName.value = it
             else schoolName.value = "선택된 학교가 없습니다"
         }
+        SharedPreferenceManager.getOfficeCode(application).let {
+            if (it != null) officeCode.value = it
+            else schoolName.value = "선택된 학교가 없습니다"
+        }
         SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null) foundSchool(it)
+            if (it != null) foundSchoolId(it)
             else notFoundSchoolId("선택된 학교가 없습니다")
         }
     }
 
-    private fun foundSchool(id : String) {
+    private fun foundSchoolId(id : String) {
         getMeal(id)
         getSchedule(id)
     }
@@ -78,7 +83,7 @@ class HomeViewModel(
     }
 
     private fun getMeal(id : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, Constants.OFFICE_CODE, getDate("yyyyMMdd"))),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, officeCode.value!!, getDate("yyyyMMdd"))),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)
@@ -92,7 +97,7 @@ class HomeViewModel(
     }
 
     private fun getSchedule(id : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, Constants.OFFICE_CODE, getDate("yyyyMM"))),
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, getDate("yyyyMM"))),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     addScheduleData(t)

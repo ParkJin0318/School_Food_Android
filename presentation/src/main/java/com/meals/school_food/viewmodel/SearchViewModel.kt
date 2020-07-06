@@ -47,9 +47,12 @@ class SearchViewModel(
     }
 
     fun setSchoolInformation(application : Application) {
-        SharedPreferenceManager.setSchoolId(application, schoolList[schoolAdapter.click.value!!].school_id)
-        SharedPreferenceManager.setSchoolName(application, schoolList[schoolAdapter.click.value!!].school_name)
-        SharedPreferenceManager.setSchoolAddress(application, schoolList[schoolAdapter.click.value!!].school_locate)
+        SharedPreferenceManager.setSchoolInformation(application, SchoolInformation(
+            schoolList[schoolAdapter.click.value!!].school_name,
+            schoolList[schoolAdapter.click.value!!].school_locate,
+            schoolList[schoolAdapter.click.value!!].office_code,
+            schoolList[schoolAdapter.click.value!!].school_id
+        ))
     }
 
     fun searchClick() {
