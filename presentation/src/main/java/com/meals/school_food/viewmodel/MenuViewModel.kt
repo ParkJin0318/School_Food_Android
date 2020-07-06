@@ -13,7 +13,9 @@ class MenuViewModel(
     val schoolName = MutableLiveData<String>()
     val schoolAddress = MutableLiveData<String>()
 
-    val changeEvent = SingleLiveEvent<Unit>()
+    val schoolChangeEvent = SingleLiveEvent<Unit>()
+    val openSourceEvent = SingleLiveEvent<Unit>()
+    val versionEvent = SingleLiveEvent<Unit>()
 
     init {
         getSchoolInformation()
@@ -31,6 +33,14 @@ class MenuViewModel(
     }
 
     fun changeClick() {
-        changeEvent.call()
+        schoolChangeEvent.call()
+    }
+
+    fun openSourceClick() {
+        openSourceEvent.call()
+    }
+
+    fun versionClick() {
+        versionEvent.call()
     }
 }

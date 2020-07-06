@@ -14,6 +14,9 @@
     <string name="today_meal">오늘의 급식</string>
     <string name="month_schedule">이번달 학사일정</string>
 
+    <string name="version">버전 정보</string>
+    <string name="open_source">오픈소스 라이선스</string>
+
     <string name="morning">아침</string>
     <string name="lunch">점심</string>
     <string name="diner">저녁</string>

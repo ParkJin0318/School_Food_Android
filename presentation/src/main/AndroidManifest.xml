@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activity.SearchActivity"></activity>
+        <activity android:name=".view.activity.OpenSourceActivity"></activity>
+        <activity android:name=".view.activity.VersionActivity" />
+        <activity android:name=".view.activity.SearchActivity" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
