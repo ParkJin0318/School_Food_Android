@@ -19,9 +19,7 @@ class SearchViewModel(
     val searchEvent = SingleLiveEvent<Unit>()
 
     val schoolAdapter = SchoolAdapter()
-    val schoolList = ArrayList<SchoolInformation>()
-
-    val completeEvent = SingleLiveEvent<Unit>()
+    private val schoolList = ArrayList<SchoolInformation>()
 
     init {
         schoolAdapter.setList(schoolList)
@@ -32,7 +30,7 @@ class SearchViewModel(
             object : DisposableSingleObserver<School>() {
                 override fun onSuccess(t: School) {
                     addData(t)
-                    completeEvent.call()
+                    isLoading.value = false
                 }
                 override fun onError(e: Throwable) { }
             })
@@ -40,19 +38,16 @@ class SearchViewModel(
 
     fun addData(t: School) {
         schoolList.clear()
-        for (item in t.schools) {
-            schoolList.add(SchoolInformation(item.school_name, item.school_locate, item.office_code, item.school_id))
+        t.schools.forEach {
+            schoolList.add(SchoolInformation(it.school_name, it.school_locate, it.office_code, it.school_id))
         }
         schoolAdapter.notifyDataSetChanged()
     }
 
     fun setSchoolInformation(application : Application) {
-        SharedPreferenceManager.setSchoolInformation(application, SchoolInformation(
-            schoolList[schoolAdapter.click.value!!].school_name,
-            schoolList[schoolAdapter.click.value!!].school_locate,
-            schoolList[schoolAdapter.click.value!!].office_code,
-            schoolList[schoolAdapter.click.value!!].school_id
-        ))
+        SharedPreferenceManager.setSchoolInformation(application, with(schoolList[schoolAdapter.click.value!!]) {
+            SchoolInformation(school_name, school_locate, office_code, school_id)
+        })
     }
 
     fun searchClick() {

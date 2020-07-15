@@ -14,9 +14,13 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
     override val layoutRes: Int
         get() = R.layout.fragment_schedule
 
+    override fun init() { }
+
     override fun observerViewModel() {
-        binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            viewModel.calendarClick(year, month, dayOfMonth)
+        with(viewModel) {
+            binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                calendarClick(year, month, dayOfMonth)
+            }
         }
     }
 }

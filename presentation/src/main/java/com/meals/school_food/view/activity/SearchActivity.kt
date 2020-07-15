@@ -20,10 +20,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         with(viewModel) {
             searchEvent.observe(this@SearchActivity, Observer {
                 getSchools()
-                viewModel.isLoading.value = true
-            })
-            completeEvent.observe(this@SearchActivity, Observer {
-                viewModel.isLoading.value = false
+                isLoading.value = true
             })
             schoolAdapter.click.observe(this@SearchActivity, Observer {
                 setSchoolInformation(application)

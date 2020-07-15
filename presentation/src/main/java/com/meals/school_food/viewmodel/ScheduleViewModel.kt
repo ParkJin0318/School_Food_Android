@@ -27,9 +27,9 @@ class ScheduleViewModel(
 
     init {
         scheduleAdapter.setList(scheduleList)
-
         getSchoolInformation()
-        getSchedule(getDate("yyyyMMdd"))
+
+        if (schoolId.value != null) getSchedule(schoolId.value!!, getDate("yyyyMMdd"))
     }
 
     private fun getSchoolInformation() {
@@ -52,8 +52,8 @@ class ScheduleViewModel(
         isLoading.value = true
     }
 
-    private fun getSchedule(date : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(schoolId.value!!, officeCode.value!!, date)),
+    private fun getSchedule(id: String, date : String) {
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, date)),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     addScheduleData(t)
@@ -69,18 +69,20 @@ class ScheduleViewModel(
 
     private fun addScheduleData(t: Schedule) {
         scheduleList.clear()
-        for (item in t.schedules) {
-            scheduleList.add(item)
+        t.schedules.forEach {
+            scheduleList.add(it)
         }
         scheduleAdapter.notifyDataSetChanged()
     }
 
     fun calendarClick(year : Int, month : Int, day : Int) {
-        getSchedule(getDateToString(year, month, day))
-        scheduleList.clear()
-        scheduleAdapter.notifyDataSetChanged()
-        isLoading.value = false
-        information.value = null
+        if (schoolId.value != null)  {
+            getSchedule(schoolId.value!!, getDateToString(year, month, day))
+            scheduleList.clear()
+            scheduleAdapter.notifyDataSetChanged()
+            isLoading.value = false
+            information.value = null
+        }
     }
 
     private fun getDateToString(year : Int, month : Int, day : Int) : String {

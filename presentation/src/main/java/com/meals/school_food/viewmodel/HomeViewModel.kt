@@ -133,8 +133,8 @@ class HomeViewModel(
 
     private fun addScheduleData(t: Schedule) {
         scheduleList.clear()
-        for (item in t.schedules) {
-            scheduleList.add(item)
+        t.schedules.forEach {
+            scheduleList.add(it)
         }
         scheduleAdapter.notifyDataSetChanged()
     }
