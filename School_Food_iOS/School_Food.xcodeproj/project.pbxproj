@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21D030F02D45AA4915614C43 /* Pods_School_Food.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */; };
 		8DA3901D24CD8BC800C163F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */; };
 		8DA3901F24CD8BC800C163F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */; };
 		8DA3902124CD8BC800C163F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3902024CD8BC800C163F1 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_School_Food.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30FC90898E1C8ADD4B6A5ED2 /* Pods-School_Food.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.debug.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.debug.xcconfig"; sourceTree = "<group>"; };
+		82309FA3FFA32C7E47020CA4 /* Pods-School_Food.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.release.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.release.xcconfig"; sourceTree = "<group>"; };
 		8DA3901924CD8BC800C163F1 /* School_Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = School_Food.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21D030F02D45AA4915614C43 /* Pods_School_Food.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00EA0A34BAF83C596F3895A3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				30FC90898E1C8ADD4B6A5ED2 /* Pods-School_Food.debug.xcconfig */,
+				82309FA3FFA32C7E47020CA4 /* Pods-School_Food.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8DA3901024CD8BC800C163F1 = {
 			isa = PBXGroup;
 			children = (
 				8DA3901B24CD8BC800C163F1 /* School_Food */,
 				8DA3901A24CD8BC800C163F1 /* Products */,
+				00EA0A34BAF83C596F3895A3 /* Pods */,
+				D60FD46B99407846C49CBDBC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +84,14 @@
 			path = School_Food;
 			sourceTree = "<group>";
 		};
+		D60FD46B99407846C49CBDBC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DA3902D24CD8BCA00C163F1 /* Build configuration list for PBXNativeTarget "School_Food" */;
 			buildPhases = (
+				3B7C8B26931FE43D5F7FD840 /* [CP] Check Pods Manifest.lock */,
 				8DA3901524CD8BC800C163F1 /* Sources */,
 				8DA3901624CD8BC800C163F1 /* Frameworks */,
 				8DA3901724CD8BC800C163F1 /* Resources */,
+				1E84180AC5374DE317B8386E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +159,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1E84180AC5374DE317B8386E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-School_Food/Pods-School_Food-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-School_Food/Pods-School_Food-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-School_Food/Pods-School_Food-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3B7C8B26931FE43D5F7FD840 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-School_Food-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DA3901524CD8BC800C163F1 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		8DA3902E24CD8BCA00C163F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30FC90898E1C8ADD4B6A5ED2 /* Pods-School_Food.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -299,6 +369,7 @@
 		};
 		8DA3902F24CD8BCA00C163F1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82309FA3FFA32C7E47020CA4 /* Pods-School_Food.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
