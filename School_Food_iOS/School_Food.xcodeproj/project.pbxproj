@@ -43,7 +43,7 @@
 		15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_School_Food.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FC90898E1C8ADD4B6A5ED2 /* Pods-School_Food.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.debug.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.debug.xcconfig"; sourceTree = "<group>"; };
 		82309FA3FFA32C7E47020CA4 /* Pods-School_Food.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.release.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.release.xcconfig"; sourceTree = "<group>"; };
-		8DA3901924CD8BC800C163F1 /* School_Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = School_Food.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DA3901924CD8BC800C163F1 /* School Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "School Food.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8DA3902524CD8BCA00C163F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,10 +110,10 @@
 		8D36703924CD913A004AF15B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8D36706124CD9272004AF15B /* Request */,
 				8D36706824CD9283004AF15B /* Response */,
-				8DF9744224CD946B00A58E66 /* NetworkClient.swift */,
+				8D36706124CD9272004AF15B /* Request */,
 				8DF9744124CD946B00A58E66 /* ResponseProtocol.swift */,
+				8DF9744224CD946B00A58E66 /* NetworkClient.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -150,6 +150,7 @@
 		8D36703D24CD9153004AF15B /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				8DA3902724CD8BCA00C163F1 /* LaunchScreen.storyboard */,
 				8DF9742B24CD942300A58E66 /* Main.storyboard */,
 			);
 			path = Storyboard;
@@ -209,7 +210,7 @@
 		8DA3901A24CD8BC800C163F1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DA3901924CD8BC800C163F1 /* School_Food.app */,
+				8DA3901924CD8BC800C163F1 /* School Food.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,7 +227,6 @@
 				8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */,
 				8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */,
 				8DA3902524CD8BCA00C163F1 /* Assets.xcassets */,
-				8DA3902724CD8BCA00C163F1 /* LaunchScreen.storyboard */,
 				8DA3902A24CD8BCA00C163F1 /* Info.plist */,
 			);
 			path = School_Food;
@@ -259,7 +259,7 @@
 			);
 			name = School_Food;
 			productName = School_Food;
-			productReference = 8DA3901924CD8BC800C163F1 /* School_Food.app */;
+			productReference = 8DA3901924CD8BC800C163F1 /* School Food.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -455,6 +455,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -508,6 +509,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -518,13 +520,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98Y25V599G;
 				INFOPLIST_FILE = School_Food/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.meals.school-food.School-Food";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "School Food";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -536,13 +540,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98Y25V599G;
 				INFOPLIST_FILE = School_Food/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.meals.school-food.School-Food";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "School Food";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

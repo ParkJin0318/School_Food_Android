@@ -68,7 +68,7 @@ extension SchoolViewController : UICollectionViewDataSource, UICollectionViewDel
             as? SchoolCell else {
             return UICollectionViewCell()
         }
-        cell.layer.cornerRadius = 8
+        cell.layer.cornerRadius = 10
         cell.update(info: viewModel.schools[indexPath.item])
         
         return cell

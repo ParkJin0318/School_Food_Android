@@ -85,13 +85,12 @@ class MealViewModel(
         clearMeal()
 
         for (i in 0..2) {
-            t.meals[i].let {
-                if (it != null) {
-                    when(i) {
-                        0 -> morningList.addAll(it.split("<br/>"))
-                        1 -> lunchList.addAll(it.split("<br/>"))
-                        2 -> dinnerList.addAll(it.split("<br/>"))
-                    }
+            t.meals[i]?.let {
+                when(i) {
+                    0 -> morningList.addAll(it.split("<br/>"))
+                    1 -> lunchList.addAll(it.split("<br/>"))
+                    2 -> dinnerList.addAll(it.split("<br/>"))
+                    else -> return@let
                 }
             }
         }

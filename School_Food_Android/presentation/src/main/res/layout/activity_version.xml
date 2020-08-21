@@ -97,7 +97,7 @@
             android:layout_marginTop="100dp"
             android:text="스토어로 이동하기"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/round_primary"
+            android:background="@drawable/background_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />

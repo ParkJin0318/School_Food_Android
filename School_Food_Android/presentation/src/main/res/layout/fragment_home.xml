@@ -114,54 +114,66 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/morning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/round_primary"
-                android:onClick="@{()->viewModel.morningClick()}"
-                android:text="@string/morning"
-                android:textColor="@color/colorWhite"
+            <LinearLayout
+                android:id="@+id/select_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                app:layout_constraintTop_toBottomOf="@+id/textView11">
 
-            <TextView
-                android:id="@+id/lunch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/round_border"
-                android:text="@string/lunch"
-                android:onClick="@{()->viewModel.lunchClick()}"
-                app:layout_constraintBottom_toBottomOf="@+id/morning"
-                app:layout_constraintStart_toEndOf="@+id/morning"
-                app:layout_constraintTop_toTopOf="@+id/morning" />
+                <CheckBox
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="50dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/background_check_box"
+                    android:button="@null"
+                    android:checked="@{viewModel.isMorning}"
+                    android:onClick="@{()->viewModel.onCheckedBreakfast()}"
+                    android:text="아침"
+                    android:textColor="@drawable/selector_text_color"
+                    android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/diner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/round_border"
-                android:text="@string/diner"
-                android:onClick="@{()->viewModel.dinerClick()}"
-                app:layout_constraintBottom_toBottomOf="@+id/lunch"
-                app:layout_constraintStart_toEndOf="@+id/lunch"
-                app:layout_constraintTop_toTopOf="@+id/lunch" />
+                <CheckBox
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="50dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_check_box"
+                    android:button="@null"
+                    android:checked="@{viewModel.isLunch}"
+                    android:onClick="@{()->viewModel.onCheckedLunch()}"
+                    android:text="점심"
+                    android:textColor="@drawable/selector_text_color"
+                    android:textSize="10sp" />
+
+                <CheckBox
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="50dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_check_box"
+                    android:button="@null"
+                    android:checked="@{viewModel.isDinner}"
+                    android:onClick="@{()->viewModel.onCheckedDinner()}"
+                    android:text="저녁"
+                    android:textColor="@drawable/selector_text_color"
+                    android:textSize="10sp" />
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/morning">
+                app:layout_constraintTop_toBottomOf="@+id/select_layout">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

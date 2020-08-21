@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 class ResponseProtocol : Decodable {
     var status : Int?
     var message : String?

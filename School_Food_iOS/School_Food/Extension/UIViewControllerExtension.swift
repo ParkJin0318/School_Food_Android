@@ -35,15 +35,13 @@ extension UIViewController {
     public func startIndicatingActivity() {
         DispatchQueue.main.async {
             self.view.addSubview(self.indicator)
-            self.indicator.startAnimating()
-            UIApplication.shared.beginIgnoringInteractionEvents() // if desired
+            self.indicator.startAnimating()// if desired
         }
     }
     
     public func stopIndicatingActivity() {
         DispatchQueue.main.async {
             self.indicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
 }

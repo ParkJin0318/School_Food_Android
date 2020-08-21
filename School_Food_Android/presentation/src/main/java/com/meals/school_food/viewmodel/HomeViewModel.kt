@@ -1,9 +1,7 @@
 package com.meals.school_food.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.Constants
 import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.dataSource.GetMealUseCase
 import com.meals.domain.dataSource.GetScheduleUseCase
@@ -32,9 +30,10 @@ class HomeViewModel(
     val scheduleCheck = MutableLiveData<String>()
 
     val searchEvent = SingleLiveEvent<Unit>()
-    val morningEvent = SingleLiveEvent<Unit>()
-    val lunchEvent = SingleLiveEvent<Unit>()
-    val dinerEvent = SingleLiveEvent<Unit>()
+
+    val isMorning = MutableLiveData(false)
+    val isLunch = MutableLiveData(false)
+    val isDinner = MutableLiveData(false)
 
     val morningAdapter = MealAdapter()
     val lunchAdapter = MealAdapter()
@@ -54,6 +53,7 @@ class HomeViewModel(
 
         date.value = getDate("yyyy년 M월 d일")
         getSchoolInformation()
+        isMorning.value = true
     }
 
     private fun getSchoolInformation() {
@@ -116,13 +116,12 @@ class HomeViewModel(
         dinnerList.clear()
 
         for (i in 0..2) {
-            t.meals[i].let {
-                if (it != null) {
-                    when(i) {
-                        0 -> morningList.addAll(it.split("<br/>"))
-                        1 -> lunchList.addAll(it.split("<br/>"))
-                        2 -> dinnerList.addAll(it.split("<br/>"))
-                    }
+            t.meals[i]?.let {
+                when(i) {
+                    0 -> morningList.addAll(it.split("<br/>"))
+                    1 -> lunchList.addAll(it.split("<br/>"))
+                    2 -> dinnerList.addAll(it.split("<br/>"))
+                    else -> return@let
                 }
             }
         }
@@ -139,19 +138,25 @@ class HomeViewModel(
         scheduleAdapter.notifyDataSetChanged()
     }
 
+    fun onCheckedBreakfast() {
+        this.isMorning.value = true
+        this.isLunch.value = false
+        this.isDinner.value = false
+    }
+
+    fun onCheckedLunch() {
+        this.isMorning.value = false
+        this.isLunch.value = true
+        this.isDinner.value = false
+    }
+
+    fun onCheckedDinner() {
+        this.isMorning.value = false
+        this.isLunch.value = false
+        this.isDinner.value = true
+    }
+
     fun searchClick() {
         searchEvent.call()
-    }
-
-    fun morningClick() {
-        morningEvent.call()
-    }
-
-    fun lunchClick() {
-        lunchEvent.call()
-    }
-
-    fun dinerClick() {
-        dinerEvent.call()
     }
 }

@@ -102,7 +102,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             as? HomeCell else {
             return UICollectionViewCell()
         }
-        cell.layer.cornerRadius = 8
+        cell.layer.cornerRadius = 10
         cell.update(info: self.scheduleViewModel.schedules[indexPath.item])
         
         return cell

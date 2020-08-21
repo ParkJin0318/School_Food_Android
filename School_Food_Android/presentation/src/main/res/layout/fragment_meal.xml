@@ -59,7 +59,7 @@
             android:text="@{viewModel.date}"
             android:onClick="@{()->viewModel.dateClick()}"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/round_primary"
+            android:background="@drawable/background_primary"
             tools:text="2020년 7월 1일"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -67,16 +67,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="150dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="150dp">
+            android:gravity="center_horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorGray"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
@@ -102,7 +103,7 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="36dp"
                         android:layout_marginBottom="8dp"
                         android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
                         app:adapter="@{viewModel.morningAdapter}"
@@ -134,7 +135,8 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
@@ -160,7 +162,8 @@
                         android:id="@+id/recyclerView3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginBottom="8dp"
                         android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
                         app:adapter="@{viewModel.lunchAdapter}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -192,7 +195,8 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
@@ -218,7 +222,7 @@
                         android:id="@+id/recyclerView2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="36dp"
                         android:layout_marginBottom="8dp"
                         android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
                         app:adapter="@{viewModel.dinnerAdapter}"
