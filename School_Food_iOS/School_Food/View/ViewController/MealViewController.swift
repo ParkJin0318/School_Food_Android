@@ -11,49 +11,28 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class MealViewController: UIViewController {
+class MealViewController: BaseViewController {
     
     let viewModel = MealViewModel()
-    let disposeBag = DisposeBag()
     
     var date: Date? = nil
     
     @IBOutlet weak var mealLabel: UILabel!
     @IBOutlet weak var mealView: UIView!
-    
     @IBOutlet weak var segment: UISegmentedControl!
-    @IBAction func segment(_ sender: UISegmentedControl) {
-        selectLoadData()
-    }
-    
-    @IBAction func DatePicker(_ sender: UIDatePicker) {
-        date = sender.date
-    }
-    
-    @IBAction func Check(_ sender: Any) {
-        if date != nil {
-            self.viewModel.getMeals(format: "yyyyMMdd", date: date!)
-        } else {
-            self.viewModel.getMeals(format: "yyyyMMdd", date: Date())
-        }
-    }
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCallback()
         
-        self.mealView.layer.cornerRadius = 8
-        self.viewModel.getMeals(format: "yyyyMMdd", date: Date())
+        self.viewModel.date.accept(Date().yearDateFormat())
+        self.viewModel.getMeals()
     }
-}
-
-extension MealViewController {
     
-    func configureCallback() {
+    override func configureCallback() {
         self.viewModel.isSuccess.bind { value in
             if value {
                 self.segment.isHidden = false
-                self.selectLoadData()
             }
         }.disposed(by: disposeBag)
         
@@ -61,6 +40,26 @@ extension MealViewController {
             if value {
                 self.segment.isHidden = true
                 self.mealLabel.text = "급식 정보가 존재하지 않습니다"
+            }
+        }.disposed(by: disposeBag)
+        
+        self.viewModel.now.bind { value in
+            switch value {
+                case 0:
+                    self.showMorning()
+                case 1:
+                    self.showLunch()
+                case 2:
+                    self.showDinner()
+                
+                default: return
+            }
+        }.disposed(by: disposeBag)
+        
+        self.viewModel.currentDate.bind { value in
+            if value != nil {
+                self.viewModel.date.accept(value!.yearDateFormat())
+                self.viewModel.getMeals()
             }
         }.disposed(by: disposeBag)
         
@@ -72,40 +71,38 @@ extension MealViewController {
             }
         }.disposed(by: disposeBag)
     }
+    
+    override func bindViewModel() {
+        segment.rx.selectedSegmentIndex
+            .bind(to: viewModel.now)
+            .disposed(by: disposeBag)
+        
+        datePicker.rx.value
+            .bind(to: viewModel.currentDate)
+            .disposed(by: disposeBag)
+    }
 }
 
 extension MealViewController {
     
-    func selectLoadData() {
+    func showMorning() {
         self.mealLabel.text?.removeAll()
-        switch self.segment.selectedSegmentIndex {
-            case 0:
-                self.addMorningData()
-            case 1:
-                self.addLunchData()
-            case 2:
-                self.addDinerData()
-            
-            default: return
+        for item in viewModel.morningList {
+            mealLabel.text?.append("\(item)\n")
         }
     }
     
-    func addMorningData() {
-           for item in self.viewModel.meals[0] {
-               mealLabel.text?.append("\(item)\n")
-           }
-       }
-       
-       
-       func addLunchData() {
-           for item in self.viewModel.meals[1] {
-               mealLabel.text?.append("\(item)\n")
-           }
-       }
-       
-       func addDinerData() {
-           for item in self.viewModel.meals[2] {
-               mealLabel.text?.append("\(item)\n")
-           }
-       }
+    func showLunch() {
+        self.mealLabel.text?.removeAll()
+        for item in viewModel.lunchList {
+            mealLabel.text?.append("\(item)\n")
+        }
+    }
+    
+    func showDinner() {
+        self.mealLabel.text?.removeAll()
+        for item in viewModel.dinnerList {
+            mealLabel.text?.append("\(item)\n")
+        }
+    }
 }

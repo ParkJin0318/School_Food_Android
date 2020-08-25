@@ -11,24 +11,19 @@ import RxSwift
 import RxCocoa
 import Alamofire
 
-class SchoolViewModel {
-    
-    let networkClient = NetworkClient()
-    let disposeBag = DisposeBag()
+class SchoolViewModel : BaseViewModel {
     
     var schools: [SchoolInfo] = []
     
-    let isSuccess = BehaviorRelay(value: false)
-    let isFail = BehaviorRelay(value: false)
-    let isLoading = BehaviorRelay(value: false)
+    let name = BehaviorRelay(value: "")
     
-    func getSchools(schoolName : String) -> Void {
+    func getSchools() {
         
         self.isLoading.accept(true)
         self.schools.removeAll()
         
         let schoolRequest = GetSchoolRequest()
-        schoolRequest.school_name = schoolName
+        schoolRequest.school_name = name.value
         
         networkClient.getRequest(GetSchool.Response.self, requestURL: "search", params: schoolRequest)
             .subscribe(

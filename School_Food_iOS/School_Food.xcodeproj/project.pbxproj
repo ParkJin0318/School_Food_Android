@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		21D030F02D45AA4915614C43 /* Pods_School_Food.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */; };
+		8D962BF824F4A43E0015F49A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D962BF724F4A43E0015F49A /* DateExtension.swift */; };
+		8D962BFB24F4BA290015F49A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D962BFA24F4BA290015F49A /* BaseViewController.swift */; };
+		8D962BFD24F4BA3D0015F49A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D962BFC24F4BA3D0015F49A /* BaseViewModel.swift */; };
 		8DA3901D24CD8BC800C163F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */; };
 		8DA3901F24CD8BC800C163F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */; };
 		8DA3902624CD8BCA00C163F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3902524CD8BCA00C163F1 /* Assets.xcassets */; };
@@ -43,6 +46,9 @@
 		15D5880C6E5D7C5A0B4CD572 /* Pods_School_Food.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_School_Food.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FC90898E1C8ADD4B6A5ED2 /* Pods-School_Food.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.debug.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.debug.xcconfig"; sourceTree = "<group>"; };
 		82309FA3FFA32C7E47020CA4 /* Pods-School_Food.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-School_Food.release.xcconfig"; path = "Target Support Files/Pods-School_Food/Pods-School_Food.release.xcconfig"; sourceTree = "<group>"; };
+		8D962BF724F4A43E0015F49A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		8D962BFA24F4BA290015F49A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		8D962BFC24F4BA3D0015F49A /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		8DA3901924CD8BC800C163F1 /* School Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "School Food.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3901C24CD8BC800C163F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DA3901E24CD8BC800C163F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +106,7 @@
 		8D36703824CD912C004AF15B /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				8D962BF724F4A43E0015F49A /* DateExtension.swift */,
 				8DF9745324CD94A200A58E66 /* EncodableExtension.swift */,
 				8DF9745124CD94A200A58E66 /* UIActivityIndicatorViewExtension.swift */,
 				8DF9745224CD94A200A58E66 /* UIViewControllerExtension.swift */,
@@ -197,6 +204,15 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		8D962BF924F4BA160015F49A /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				8D962BFA24F4BA290015F49A /* BaseViewController.swift */,
+				8D962BFC24F4BA3D0015F49A /* BaseViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		8DA3901024CD8BC800C163F1 = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				8D36703D24CD9153004AF15B /* Storyboard */,
+				8D962BF924F4BA160015F49A /* Base */,
 				8D36703C24CD914E004AF15B /* View */,
 				8D36703B24CD9149004AF15B /* ViewModel */,
 				8D36703A24CD9145004AF15B /* Model */,
@@ -373,10 +390,13 @@
 				8DF9744024CD945D00A58E66 /* SchoolViewController.swift in Sources */,
 				8DF9743624CD945400A58E66 /* ScheduleCell.swift in Sources */,
 				8DF9745C24CD94BB00A58E66 /* SchoolDefaults.swift in Sources */,
+				8D962BFB24F4BA290015F49A /* BaseViewController.swift in Sources */,
 				8DF9745624CD94A200A58E66 /* EncodableExtension.swift in Sources */,
 				8DF9744F24CD949000A58E66 /* GetScheduleRequest.swift in Sources */,
 				8DF9743F24CD945D00A58E66 /* MealViewController.swift in Sources */,
 				8DF9745424CD94A200A58E66 /* UIActivityIndicatorViewExtension.swift in Sources */,
+				8D962BFD24F4BA3D0015F49A /* BaseViewModel.swift in Sources */,
+				8D962BF824F4A43E0015F49A /* DateExtension.swift in Sources */,
 				8DF9744424CD946B00A58E66 /* NetworkClient.swift in Sources */,
 				8DF9744324CD946B00A58E66 /* ResponseProtocol.swift in Sources */,
 				8DF9745524CD94A200A58E66 /* UIViewControllerExtension.swift in Sources */,

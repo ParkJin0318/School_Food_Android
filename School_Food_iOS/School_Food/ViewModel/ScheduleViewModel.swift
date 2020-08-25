@@ -11,28 +11,22 @@ import RxSwift
 import RxCocoa
 import Alamofire
 
-class ScheduleViewModel {
-    
-    let networkClient = NetworkClient()
-    let disposeBag = DisposeBag()
+class ScheduleViewModel : BaseViewModel {
     
     let schoolDefaults = SchoolDefaults()
     
     var schedules: [ScheduleInfo] = []
     
-    let isSuccess = BehaviorRelay(value: false)
-    let isFail = BehaviorRelay(value: false)
-    let isLoading = BehaviorRelay(value: false)
+    let date = BehaviorRelay(value: "")
     
-    func getSchedules(format: String, date: Date) {
-        
+    func getSchedules() {
         self.isLoading.accept(true)
         self.schedules.removeAll()
         
         let scheduleRequest = GetScheduleRequest()
         scheduleRequest.school_id = schoolDefaults.getSchoolDefaults().school_id
         scheduleRequest.office_code = schoolDefaults.getSchoolDefaults().office_code
-        scheduleRequest.date = schoolDefaults.getDate(format: format, date: date)
+        scheduleRequest.date = self.date.value
             
         networkClient.getRequest(GetSchedule.Response.self, requestURL: "schedule", params: scheduleRequest)
         .subscribe(

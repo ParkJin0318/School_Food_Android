@@ -11,60 +11,35 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class HomeViewController: UIViewController {
+class HomeViewController: BaseViewController {
     
     let mealViewModel = MealViewModel()
     let scheduleViewModel = ScheduleViewModel()
     
-    let disposeBag = DisposeBag()
-    
     let schoolDefaults = SchoolDefaults()
 
     @IBOutlet weak var mealLabel: UILabel!
-    
     @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var collection: UICollectionView!
-    
     @IBOutlet weak var segment: UISegmentedControl!
-    @IBAction func segment(_ sender: UISegmentedControl) {
-        selectLoadData()
-    }
+    @IBOutlet weak var collection: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCallback()
-        
-        let name = schoolDefaults.getSchoolDefaults().school_name
-        if name == "" {
-            self.nameLabel.text = "선택된 학교가 없습니다"
-        } else {
-            self.nameLabel.text = schoolDefaults.getSchoolDefaults().school_name
-        }
-        
-        self.mealViewModel.getMeals(format: "yyyyMMdd", date: Date())
-        self.scheduleViewModel.getSchedules(format: "yyyyMM", date: Date())
+        self.getInfo()
     }
     
     @IBAction func unwindToSchool(_ unwindSegue: UIStoryboardSegue) {
-        
         let sourceViewController = unwindSegue.source as? SchoolViewController
         let school = sourceViewController?.school ?? SchoolInfo()
         
         self.schoolDefaults.setSchoolDefaults(school: school)
-        self.nameLabel.text = schoolDefaults.getSchoolDefaults().school_name
-        self.mealViewModel.getMeals(format: "yyyyMMdd", date: Date())
-        self.scheduleViewModel.getSchedules(format: "yyyyMM", date: Date())
+        self.getInfo()
     }
-}
-
-extension HomeViewController {
     
-    func configureCallback() {
+    override func configureCallback() {
         self.mealViewModel.isSuccess.bind { value in
             if value {
                 self.segment.isHidden = false
-                self.selectLoadData()
             }
         }.disposed(by: disposeBag)
         
@@ -83,11 +58,34 @@ extension HomeViewController {
             }
         }.disposed(by: disposeBag)
         
+        self.mealViewModel.now.bind { value in
+            switch value {
+                case 0:
+                    self.showMorning()
+                case 1:
+                    self.showLunch()
+                case 2:
+                    self.showDinner()
+                
+                default: return
+            }
+        }.disposed(by: disposeBag)
+        
         self.scheduleViewModel.isSuccess.bind { value in
             if value {
                 self.collection.reloadData()
             }
         }.disposed(by: disposeBag)
+    }
+    
+    override func bindViewModel() {
+        segment.rx.selectedSegmentIndex
+            .bind(to: mealViewModel.now)
+            .disposed(by: disposeBag)
+        
+        mealViewModel.name
+            .bind(to: nameLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -111,36 +109,34 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
 
 extension HomeViewController {
     
-    func selectLoadData() {
-        mealLabel.text?.removeAll()
-        switch self.segment.selectedSegmentIndex {
-            case 0:
-                self.addMorningData()
-            case 1:
-                self.addLunchData()
-            case 2:
-                self.addDinerData()
-            
-            default: return
-        }
-    }
-    
-    func addMorningData() {
-        for item in mealViewModel.meals[0] {
+    func showMorning() {
+        self.mealLabel.text?.removeAll()
+        for item in mealViewModel.morningList {
             mealLabel.text?.append("\(item)\n")
         }
     }
     
-    
-    func addLunchData() {
-        for item in mealViewModel.meals[1] {
+    func showLunch() {
+        self.mealLabel.text?.removeAll()
+        for item in mealViewModel.lunchList {
             mealLabel.text?.append("\(item)\n")
         }
     }
     
-    func addDinerData() {
-        for item in mealViewModel.meals[2] {
+    func showDinner() {
+        self.mealLabel.text?.removeAll()
+        for item in mealViewModel.dinnerList {
             mealLabel.text?.append("\(item)\n")
         }
+    }
+    
+    func getInfo() {
+        self.mealViewModel.getName()
+        
+        self.mealViewModel.date.accept(Date().yearDateFormat())
+        self.mealViewModel.getMeals()
+        
+        self.scheduleViewModel.date.accept(Date().monthDateFormat())
+        self.scheduleViewModel.getSchedules()
     }
 }

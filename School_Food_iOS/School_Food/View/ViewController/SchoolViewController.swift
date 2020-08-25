@@ -11,38 +11,30 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class SchoolViewController: UIViewController{
+class SchoolViewController: BaseViewController {
     
     let viewModel = SchoolViewModel()
-    let disposeBag = DisposeBag()
     
     var school : SchoolInfo! = nil
 
-    @IBOutlet weak var CollectionView: UICollectionView!
     @IBOutlet weak var inputWord: UITextField!
-    
-    @IBAction func searchEvent(_ sender: UIButton) {
-        self.viewModel.getSchools(schoolName: self.inputWord.text!)
-    }
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCallback()
     }
-}
-
-extension SchoolViewController {
     
-    func configureCallback() {
+    override func configureCallback() {
         self.viewModel.isSuccess.bind { value in
             if value {
-                self.CollectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }.disposed(by: disposeBag)
         
         self.viewModel.isFail.bind { value in
             if value {
-                self.CollectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }.disposed(by: disposeBag)
         
@@ -53,6 +45,16 @@ extension SchoolViewController {
                 self.stopIndicatingActivity()
             }
         }.disposed(by: disposeBag)
+    }
+    
+    override func bindViewModel() {
+        searchButton.rx.tap
+            .bind(onNext: viewModel.getSchools)
+            .disposed(by: disposeBag)
+        
+        inputWord.rx.text.orEmpty
+            .bind(to: viewModel.name)
+            .disposed(by: disposeBag)
     }
 }
 

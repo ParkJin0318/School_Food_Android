@@ -29,11 +29,4 @@ class SchoolDefaults {
         UserDefaults.standard.set(school.school_id, forKey: "school_id")
         UserDefaults.standard.set(school.office_code, forKey: "office_code")
     }
-    
-    func getDate(format: String, date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        let currentDate = dateFormatter.string(from: date)
-        return currentDate
-    }
 }

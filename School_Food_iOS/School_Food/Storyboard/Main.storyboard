@@ -17,43 +17,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학교" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRb-vL-wCs">
-                                <rect key="frame" x="30" y="178.5" width="29.5" height="21"/>
+                                <rect key="frame" x="30" y="170" width="29.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 급식" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlv-De-eqJ">
-                                <rect key="frame" x="30" y="239.5" width="91" height="24"/>
+                                <rect key="frame" x="30" y="231" width="91" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4z2-nI-avs">
-                                <rect key="frame" x="30" y="278.5" width="138.5" height="32"/>
+                                <rect key="frame" x="30" y="270" width="138.5" height="32"/>
                                 <segments>
                                     <segment title="" image="cloud.sun.fill" catalog="system"/>
                                     <segment title="" image="sun.min.fill" catalog="system"/>
                                     <segment title="" image="moon.fill" catalog="system"/>
                                 </segments>
-                                <connections>
-                                    <action selector="segment:" destination="BYZ-38-t0r" eventType="valueChanged" id="OxH-oP-RUX"/>
-                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxE-0c-3PR">
-                                <rect key="frame" x="30" y="324.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="30" y="316" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이번달 학사일정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcU-R6-ENp">
-                                <rect key="frame" x="30" y="509.5" width="126" height="24"/>
+                                <rect key="frame" x="30" y="501" width="126" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hc4-6i-6ub">
-                                <rect key="frame" x="20" y="548.5" width="374" height="249.5"/>
+                                <rect key="frame" x="20" y="540" width="374" height="258"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="47J-PK-beq">
                                     <size key="itemSize" width="380" height="60"/>
@@ -135,7 +132,7 @@
                         <outlet property="collection" destination="hc4-6i-6ub" id="xQ4-DM-uwL"/>
                         <outlet property="mealLabel" destination="mxE-0c-3PR" id="sGg-Cf-5I9"/>
                         <outlet property="nameLabel" destination="aRb-vL-wCs" id="IUk-FR-Boq"/>
-                        <outlet property="segment" destination="4z2-nI-avs" id="prs-bC-jgM"/>
+                        <outlet property="segment" destination="4z2-nI-avs" id="tWY-3i-3s4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -154,32 +151,17 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="ZBj-PI-cPk">
                                 <rect key="frame" x="0.0" y="148.5" width="414" height="216"/>
                                 <locale key="locale" localeIdentifier="ko"/>
-                                <connections>
-                                    <action selector="DatePicker:" destination="zaq-Sf-KST" eventType="valueChanged" id="BgE-5o-2OX"/>
-                                </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOX-B0-rlB">
-                                <rect key="frame" x="0.0" y="374.5" width="414" height="30"/>
-                                <state key="normal" title="확인">
-                                    <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="Check:" destination="zaq-Sf-KST" eventType="touchUpInside" id="LMK-OF-4U1"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fI6-43-kfl">
-                                <rect key="frame" x="7" y="447.5" width="400" height="32"/>
+                                <rect key="frame" x="7" y="394.5" width="400" height="32"/>
                                 <segments>
                                     <segment title="아침"/>
                                     <segment title="점심"/>
                                     <segment title="저녁"/>
                                 </segments>
-                                <connections>
-                                    <action selector="segment:" destination="zaq-Sf-KST" eventType="valueChanged" id="MBa-eb-bQ9"/>
-                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-Fq-eBk">
-                                <rect key="frame" x="20" y="498.5" width="374" height="294.5"/>
+                                <rect key="frame" x="20" y="445.5" width="374" height="347.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdF-ju-vIx">
                                         <rect key="frame" x="15" y="15" width="0.0" height="0.0"/>
@@ -203,27 +185,25 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="cOX-B0-rlB" firstAttribute="trailing" secondItem="ZBj-PI-cPk" secondAttribute="trailing" id="98x-vY-7la"/>
                             <constraint firstItem="fI6-43-kfl" firstAttribute="leading" secondItem="e4q-Lt-tEl" secondAttribute="leading" constant="7" id="Bw3-F1-egn"/>
-                            <constraint firstItem="cOX-B0-rlB" firstAttribute="leading" secondItem="ZBj-PI-cPk" secondAttribute="leading" id="KZh-Qr-Bm5"/>
                             <constraint firstItem="ZBj-PI-cPk" firstAttribute="leading" secondItem="e4q-Lt-tEl" secondAttribute="leading" id="NMv-8r-fwB"/>
                             <constraint firstItem="e4q-Lt-tEl" firstAttribute="bottom" secondItem="YsY-Fq-eBk" secondAttribute="bottom" constant="20" id="Q6m-78-RHa"/>
                             <constraint firstItem="YsY-Fq-eBk" firstAttribute="leading" secondItem="e4q-Lt-tEl" secondAttribute="leading" constant="20" id="Znz-dM-ElC"/>
                             <constraint firstItem="e4q-Lt-tEl" firstAttribute="trailing" secondItem="YsY-Fq-eBk" secondAttribute="trailing" constant="20" id="bzw-mp-yb4"/>
-                            <constraint firstItem="fI6-43-kfl" firstAttribute="top" secondItem="cOX-B0-rlB" secondAttribute="bottom" constant="43" id="eWd-33-sDd"/>
+                            <constraint firstItem="fI6-43-kfl" firstAttribute="top" secondItem="ZBj-PI-cPk" secondAttribute="bottom" constant="30" id="jea-s8-zes"/>
                             <constraint firstItem="e4q-Lt-tEl" firstAttribute="trailing" secondItem="ZBj-PI-cPk" secondAttribute="trailing" id="noc-Bq-kGt"/>
                             <constraint firstItem="e4q-Lt-tEl" firstAttribute="trailing" secondItem="fI6-43-kfl" secondAttribute="trailing" constant="7" id="oQR-jC-Jlv"/>
                             <constraint firstItem="ZBj-PI-cPk" firstAttribute="top" secondItem="e4q-Lt-tEl" secondAttribute="top" id="rlv-Ag-1yG"/>
-                            <constraint firstItem="cOX-B0-rlB" firstAttribute="top" secondItem="ZBj-PI-cPk" secondAttribute="bottom" constant="10" id="roa-Zj-63g"/>
                             <constraint firstItem="YsY-Fq-eBk" firstAttribute="top" secondItem="fI6-43-kfl" secondAttribute="bottom" constant="20" id="wBT-Un-Vpl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="e4q-Lt-tEl"/>
                     </view>
                     <navigationItem key="navigationItem" title="급식" id="lH4-UU-aud"/>
                     <connections>
+                        <outlet property="datePicker" destination="ZBj-PI-cPk" id="XSd-GN-UGT"/>
                         <outlet property="mealLabel" destination="FdF-ju-vIx" id="4Qt-XT-qmb"/>
                         <outlet property="mealView" destination="YsY-Fq-eBk" id="4AZ-ip-w8S"/>
-                        <outlet property="segment" destination="fI6-43-kfl" id="t3W-t6-OhU"/>
+                        <outlet property="segment" destination="fI6-43-kfl" id="nIY-YU-hJF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I45-Cs-1Qe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -364,7 +344,7 @@
                     <navigationItem key="navigationItem" title="학사일정" id="FUV-Jq-DK4"/>
                     <connections>
                         <outlet property="Calendar" destination="vLK-tV-beM" id="p93-kA-g61"/>
-                        <outlet property="CollectionView" destination="JS3-ij-0PE" id="8kK-Fq-RUW"/>
+                        <outlet property="collectionView" destination="JS3-ij-0PE" id="MEj-Qx-Du7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUt-Hy-RIA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -418,9 +398,6 @@
                                 <rect key="frame" x="372" y="178.5" width="20" height="38"/>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="magnifyingglass" catalog="system"/>
-                                <connections>
-                                    <action selector="searchEvent:" destination="LSf-uf-LuJ" eventType="touchUpInside" id="wyT-mc-GDJ"/>
-                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Vi-7K-UWR">
                                 <rect key="frame" x="20" y="236.5" width="374" height="576.5"/>
@@ -508,8 +485,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="학교 검색" id="GVp-41-DAc"/>
                     <connections>
-                        <outlet property="CollectionView" destination="8Vi-7K-UWR" id="CIV-Rv-e73"/>
+                        <outlet property="collectionView" destination="8Vi-7K-UWR" id="NaD-H7-aeb"/>
                         <outlet property="inputWord" destination="Qym-h8-bIT" id="v0I-OD-aQx"/>
+                        <outlet property="searchButton" destination="m2F-2t-gPb" id="lpU-VQ-nZu"/>
                         <segue destination="tN0-xN-EOd" kind="unwind" identifier="unwindToSchool" unwindAction="unwindToSchool:" id="3Jv-xa-hb0"/>
                     </connections>
                 </viewController>

@@ -12,34 +12,30 @@ import RxCocoa
 import RxSwift
 import FSCalendar
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: BaseViewController {
     
     let viewModel = ScheduleViewModel()
-    let disposeBag = DisposeBag()
     
     @IBOutlet weak var Calendar: FSCalendar!
-    @IBOutlet weak var CollectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCallback()
         
-        self.viewModel.getSchedules(format: "yyyyMMdd", date: Date())
+        self.viewModel.date.accept(Date().yearDateFormat())
+        self.viewModel.getSchedules()
     }
-}
-
-extension ScheduleViewController {
     
-    func configureCallback() {
+    override func configureCallback() {
         self.viewModel.isSuccess.bind { value in
             if value {
-                self.CollectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }.disposed(by: disposeBag)
         
         self.viewModel.isFail.bind { value in
             if value {
-                self.CollectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }.disposed(by: disposeBag)
         
@@ -56,7 +52,8 @@ extension ScheduleViewController {
 extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     
     public func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        self.viewModel.getSchedules(format: "yyyyMMdd", date: date)
+        self.viewModel.date.accept(date.yearDateFormat())
+        self.viewModel.getSchedules()
     }
 }
 
