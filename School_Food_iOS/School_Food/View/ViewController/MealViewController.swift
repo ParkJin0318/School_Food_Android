@@ -24,9 +24,7 @@ class MealViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.viewModel.date.accept(Date().yearDateFormat())
-        self.viewModel.getMeals()
+        self.viewModel.getMeals(date: Date().yearDateFormat())
     }
     
     override func configureCallback() {
@@ -58,8 +56,7 @@ class MealViewController: BaseViewController {
         
         self.viewModel.currentDate.bind { value in
             if value != nil {
-                self.viewModel.date.accept(value!.yearDateFormat())
-                self.viewModel.getMeals()
+                self.viewModel.getMeals(date: value!.yearDateFormat())
             }
         }.disposed(by: disposeBag)
         
@@ -87,6 +84,8 @@ extension MealViewController {
     
     func showMorning() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 0
+        
         for item in viewModel.morningList {
             mealLabel.text?.append("\(item)\n")
         }
@@ -94,6 +93,8 @@ extension MealViewController {
     
     func showLunch() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 1
+        
         for item in viewModel.lunchList {
             mealLabel.text?.append("\(item)\n")
         }
@@ -101,6 +102,8 @@ extension MealViewController {
     
     func showDinner() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 2
+        
         for item in viewModel.dinnerList {
             mealLabel.text?.append("\(item)\n")
         }

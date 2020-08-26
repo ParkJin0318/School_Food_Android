@@ -19,7 +19,6 @@ class MealViewModel : BaseViewModel {
     
     let now = BehaviorRelay<Int?>(value: nil)
     let name = BehaviorRelay(value: "")
-    let date = BehaviorRelay(value: "")
     let currentDate = BehaviorRelay<Date?>(value: nil)
     
     var morningList: [String] = []
@@ -35,7 +34,7 @@ class MealViewModel : BaseViewModel {
         }
     }
     
-    func getMeals() {
+    func getMeals(date: String) {
         
         var mealList : [String] = []
         
@@ -45,7 +44,7 @@ class MealViewModel : BaseViewModel {
         let mealRequest = GetMealRequest()
         mealRequest.school_id = schoolDefaults.getSchoolDefaults().school_id
         mealRequest.office_code = schoolDefaults.getSchoolDefaults().office_code
-        mealRequest.date = self.date.value
+        mealRequest.date = date
         
         networkClient.getRequest(GetMeal.Response.self, requestURL: "meals", params: mealRequest)
         .subscribe(
@@ -87,6 +86,18 @@ class MealViewModel : BaseViewModel {
                 default: return
             }
         }
-        self.now.accept(0)
+        self.setCurrentMeal()
+    }
+
+    func setCurrentMeal() {
+        let now = Date().getDateFormat()
+        
+        if "08:20".getTime() > now {
+            self.now.accept(0)
+        } else if "13:20".getTime() > now {
+            self.now.accept(1)
+        } else {
+            self.now.accept(2)
+        }
     }
 }

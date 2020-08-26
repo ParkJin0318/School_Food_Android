@@ -268,7 +268,7 @@
                                 </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JS3-ij-0PE">
-                                <rect key="frame" x="0.0" y="613" width="414" height="200"/>
+                                <rect key="frame" x="10" y="613" width="394" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MPA-XI-6EF">
                                     <size key="itemSize" width="414" height="60"/>
@@ -278,19 +278,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScheduleCell" id="fNL-Vf-nRo" customClass="ScheduleCell" customModule="School_Food" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                        <rect key="frame" x="-10" y="0.0" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1uO-Z3-4pb">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVr-AI-Lzy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="60"/>
-                                                    <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVX-2V-O2Z">
-                                                    <rect key="frame" x="50" y="0.0" width="42" height="60"/>
+                                                    <rect key="frame" x="30" y="0.0" width="42" height="60"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -304,16 +299,12 @@
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstItem="OVr-AI-Lzy" firstAttribute="top" secondItem="1uO-Z3-4pb" secondAttribute="top" id="Dq7-Zg-3Ro"/>
-                                                <constraint firstItem="OVr-AI-Lzy" firstAttribute="leading" secondItem="1uO-Z3-4pb" secondAttribute="leading" id="Saa-JV-rOp"/>
-                                                <constraint firstAttribute="trailing" secondItem="cMJ-CN-QE6" secondAttribute="trailing" constant="30" id="cIn-PH-USv"/>
-                                                <constraint firstItem="RVX-2V-O2Z" firstAttribute="top" secondItem="1uO-Z3-4pb" secondAttribute="top" id="fYv-QL-IsG"/>
-                                                <constraint firstAttribute="bottom" secondItem="cMJ-CN-QE6" secondAttribute="bottom" id="gcs-P0-HyI"/>
-                                                <constraint firstItem="RVX-2V-O2Z" firstAttribute="leading" secondItem="1uO-Z3-4pb" secondAttribute="leading" constant="50" id="m5T-cj-5n3"/>
-                                                <constraint firstItem="cMJ-CN-QE6" firstAttribute="top" secondItem="1uO-Z3-4pb" secondAttribute="top" id="pV4-Lh-yvg"/>
-                                                <constraint firstAttribute="bottom" secondItem="OVr-AI-Lzy" secondAttribute="bottom" id="qbo-jw-55k"/>
-                                                <constraint firstItem="RVX-2V-O2Z" firstAttribute="leading" secondItem="OVr-AI-Lzy" secondAttribute="trailing" constant="30" id="sK8-8a-Sl4"/>
-                                                <constraint firstAttribute="bottom" secondItem="RVX-2V-O2Z" secondAttribute="bottom" id="vXQ-0f-hYC"/>
+                                                <constraint firstAttribute="bottom" secondItem="RVX-2V-O2Z" secondAttribute="bottom" id="4XU-YW-k5D"/>
+                                                <constraint firstItem="RVX-2V-O2Z" firstAttribute="leading" secondItem="1uO-Z3-4pb" secondAttribute="leading" constant="30" id="57C-D0-DjG"/>
+                                                <constraint firstItem="RVX-2V-O2Z" firstAttribute="top" secondItem="1uO-Z3-4pb" secondAttribute="top" id="FU5-fP-bBz"/>
+                                                <constraint firstItem="cMJ-CN-QE6" firstAttribute="top" secondItem="1uO-Z3-4pb" secondAttribute="top" id="PuZ-dt-xEz"/>
+                                                <constraint firstAttribute="trailing" secondItem="cMJ-CN-QE6" secondAttribute="trailing" constant="30" id="fTE-ua-jKY"/>
+                                                <constraint firstAttribute="bottom" secondItem="cMJ-CN-QE6" secondAttribute="bottom" id="gsi-ft-5ej"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
@@ -333,11 +324,11 @@
                             <constraint firstItem="V3Y-dK-2F6" firstAttribute="trailing" secondItem="vLK-tV-beM" secondAttribute="trailing" id="3e7-JA-pyO"/>
                             <constraint firstItem="JS3-ij-0PE" firstAttribute="top" secondItem="vLK-tV-beM" secondAttribute="bottom" id="DZR-OX-hPI"/>
                             <constraint firstItem="vLK-tV-beM" firstAttribute="leading" secondItem="V3Y-dK-2F6" secondAttribute="leading" id="M2K-Wp-9O0"/>
-                            <constraint firstItem="V3Y-dK-2F6" firstAttribute="trailing" secondItem="JS3-ij-0PE" secondAttribute="trailing" id="ZIf-kP-q1a"/>
+                            <constraint firstItem="V3Y-dK-2F6" firstAttribute="trailing" secondItem="JS3-ij-0PE" secondAttribute="trailing" constant="10" id="ZIf-kP-q1a"/>
                             <constraint firstItem="V3Y-dK-2F6" firstAttribute="bottom" secondItem="vLK-tV-beM" secondAttribute="bottom" constant="200" id="jJ3-vp-f3o"/>
                             <constraint firstItem="vLK-tV-beM" firstAttribute="top" secondItem="V3Y-dK-2F6" secondAttribute="top" id="xSo-kr-cg6"/>
                             <constraint firstItem="V3Y-dK-2F6" firstAttribute="bottom" secondItem="JS3-ij-0PE" secondAttribute="bottom" id="ytQ-i9-Ek9"/>
-                            <constraint firstItem="JS3-ij-0PE" firstAttribute="leading" secondItem="V3Y-dK-2F6" secondAttribute="leading" id="zC5-Hq-s0C"/>
+                            <constraint firstItem="JS3-ij-0PE" firstAttribute="leading" secondItem="V3Y-dK-2F6" secondAttribute="leading" constant="10" id="zC5-Hq-s0C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="V3Y-dK-2F6"/>
                     </view>

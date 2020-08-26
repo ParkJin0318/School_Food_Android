@@ -15,7 +15,7 @@ class ScheduleCell : UICollectionViewCell {
     @IBOutlet weak var scheduleLable: UILabel!
     
     func update(info: ScheduleInfo) {
-        dateLabel.text = info.date
+        dateLabel.text = info.date.getDateFormat()
         scheduleLable.text = info.name
     }
 }

@@ -79,7 +79,7 @@ class HomeViewController: BaseViewController {
     }
     
     override func bindViewModel() {
-        segment.rx.selectedSegmentIndex
+        segment.rx.value
             .bind(to: mealViewModel.now)
             .disposed(by: disposeBag)
         
@@ -111,6 +111,8 @@ extension HomeViewController {
     
     func showMorning() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 0
+        
         for item in mealViewModel.morningList {
             mealLabel.text?.append("\(item)\n")
         }
@@ -118,6 +120,8 @@ extension HomeViewController {
     
     func showLunch() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 1
+        
         for item in mealViewModel.lunchList {
             mealLabel.text?.append("\(item)\n")
         }
@@ -125,6 +129,8 @@ extension HomeViewController {
     
     func showDinner() {
         self.mealLabel.text?.removeAll()
+        self.segment.selectedSegmentIndex = 2
+        
         for item in mealViewModel.dinnerList {
             mealLabel.text?.append("\(item)\n")
         }
@@ -132,11 +138,7 @@ extension HomeViewController {
     
     func getInfo() {
         self.mealViewModel.getName()
-        
-        self.mealViewModel.date.accept(Date().yearDateFormat())
-        self.mealViewModel.getMeals()
-        
-        self.scheduleViewModel.date.accept(Date().monthDateFormat())
-        self.scheduleViewModel.getSchedules()
+        self.mealViewModel.getMeals(date: Date().yearDateFormat())
+        self.scheduleViewModel.getSchedules(date: Date().monthDateFormat())
     }
 }

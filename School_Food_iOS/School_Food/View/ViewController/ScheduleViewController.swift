@@ -21,9 +21,7 @@ class ScheduleViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.viewModel.date.accept(Date().yearDateFormat())
-        self.viewModel.getSchedules()
+        self.viewModel.getSchedules(date: Date().yearDateFormat())
     }
     
     override func configureCallback() {
@@ -52,8 +50,7 @@ class ScheduleViewController: BaseViewController {
 extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     
     public func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        self.viewModel.date.accept(date.yearDateFormat())
-        self.viewModel.getSchedules()
+        self.viewModel.getSchedules(date: date.yearDateFormat())
     }
 }
 

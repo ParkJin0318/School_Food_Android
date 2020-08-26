@@ -21,4 +21,30 @@ extension Date {
         format.dateFormat = "yyyyMM"
         return format.string(from: self)
     }
+    
+    func getDateFormat() -> Date {
+        let format = DateFormatter()
+        format.dateFormat = "HH:mm"
+        return format.date(from: format.string(from: self))!
+    }
+}
+
+extension String {
+    
+    func getTime() -> Date {
+        let format = DateFormatter()
+        format.dateFormat = "HH:mm"
+        return format.date(from: self)!
+    }
+    
+    func getDateFormat() -> String {
+        let beforeFormat = DateFormatter()
+        beforeFormat.dateFormat = "yyyyMMdd"
+        
+        let afterFormat = DateFormatter()
+        afterFormat.dateFormat = "yyyy년 M월 d일"
+        
+        let date = beforeFormat.date(from: self)!
+        return afterFormat.string(from: date)
+    }
 }
