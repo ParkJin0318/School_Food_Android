@@ -10,9 +10,13 @@ import com.meals.domain.model.Meal
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.extension.dayDateFormat
+import com.meals.school_food.widget.extension.krDateFormat
+import com.meals.school_food.widget.extension.monthDateFormat
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
+import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeViewModel(
@@ -51,7 +55,7 @@ class HomeViewModel(
         dinnerAdapter.setList(dinnerList)
         scheduleAdapter.setList(scheduleList)
 
-        date.value = getDate("yyyy년 M월 d일")
+        date.value = Date().krDateFormat()
         getSchoolInformation()
         isMorning.value = true
     }
@@ -83,7 +87,7 @@ class HomeViewModel(
     }
 
     private fun getMeal(id : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, officeCode.value!!, getDate("yyyyMMdd"))),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, officeCode.value!!, Date().dayDateFormat())),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)
@@ -97,7 +101,7 @@ class HomeViewModel(
     }
 
     private fun getSchedule(id : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, getDate("yyyyMM"))),
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, Date().monthDateFormat())),
             object : DisposableSingleObserver<Schedule>() {
                 override fun onSuccess(t: Schedule) {
                     addScheduleData(t)

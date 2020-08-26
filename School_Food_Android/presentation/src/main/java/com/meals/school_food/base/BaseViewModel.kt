@@ -37,11 +37,6 @@ open class BaseViewModel : ViewModel() {
         return isLoading
     }
 
-    fun getDate(pattern : String) : String {
-        val format = SimpleDateFormat(pattern)
-        return format.format(Date(System.currentTimeMillis()))
-    }
-
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

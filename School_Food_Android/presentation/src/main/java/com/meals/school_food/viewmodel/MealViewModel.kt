@@ -8,9 +8,13 @@ import com.meals.domain.dataSource.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.extension.getDateFormat
+import com.meals.school_food.widget.extension.krDateFormat
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MealViewModel(
     private val application: Application,
@@ -38,7 +42,7 @@ class MealViewModel(
         lunchAdapter.setList(lunchList)
         dinnerAdapter.setList(dinnerList)
 
-        date.value = getDate("yyyy년 MM월 dd일")
+        date.value = Date().krDateFormat()
         getSchoolInformation()
     }
 
@@ -59,7 +63,7 @@ class MealViewModel(
 
     private fun foundSchoolId(id : String) {
         schoolId.value = id
-        getMeal(getDateFormat(date.value.toString()))
+        getMeal(date.value.toString().getDateFormat())
     }
 
     private fun notFoundSchoolId(text : String) {
@@ -99,7 +103,7 @@ class MealViewModel(
 
     fun setDate(year : Int, month : Int, day : Int) {
         date.value = "${year}년 ${month}월 ${day}일"
-        getMeal(getDateFormat(date.value.toString()))
+        getMeal(date.value.toString().getDateFormat())
         clearMeal()
         changeMeal()
         isLoading.value = false
@@ -116,11 +120,6 @@ class MealViewModel(
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()
-    }
-
-    private fun getDateFormat(scheduleDate : String) : String {
-        val strToDate = SimpleDateFormat("yyyy년 MM월 dd일").parse(scheduleDate)
-        return SimpleDateFormat("yyyyMMdd").format(strToDate)
     }
 
     fun dateClick() {

@@ -8,9 +8,13 @@ import com.meals.domain.dataSource.GetScheduleUseCase
 import com.meals.domain.model.DetailSchedule
 import com.meals.domain.model.Schedule
 import com.meals.school_food.base.BaseViewModel
+import com.meals.school_food.widget.extension.dayDateFormat
+import com.meals.school_food.widget.extension.getDateFormat2
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleViewModel(
     private val application: Application,
@@ -29,7 +33,7 @@ class ScheduleViewModel(
         scheduleAdapter.setList(scheduleList)
         getSchoolInformation()
 
-        if (schoolId.value != null) getSchedule(schoolId.value!!, getDate("yyyyMMdd"))
+        if (schoolId.value != null) getSchedule(schoolId.value!!, Date().dayDateFormat())
     }
 
     private fun getSchoolInformation() {
@@ -77,17 +81,11 @@ class ScheduleViewModel(
 
     fun calendarClick(year : Int, month : Int, day : Int) {
         if (schoolId.value != null)  {
-            getSchedule(schoolId.value!!, getDateToString(year, month, day))
+            getSchedule(schoolId.value!!, "${year}${month+1}${day}".getDateFormat2())
             scheduleList.clear()
             scheduleAdapter.notifyDataSetChanged()
             isLoading.value = false
             information.value = null
         }
-    }
-
-    private fun getDateToString(year : Int, month : Int, day : Int) : String {
-        val date = "${year}${month+1}${day}"
-        val strToDate = SimpleDateFormat("yyyyMd").parse(date)
-        return SimpleDateFormat("yyyyMMdd").format(strToDate)
     }
 }
