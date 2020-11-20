@@ -2,7 +2,7 @@ package com.meals.data.datasource
 
 import com.meals.data.base.BaseDataSource
 import com.meals.data.network.remote.MealRemote
-import com.meals.domain.model.Meal
+import com.meals.data.network.response.MealData
 import io.reactivex.Single
 
 class MealDataSource(
@@ -10,6 +10,6 @@ class MealDataSource(
     override val cache: Any
 ) : BaseDataSource<MealRemote, Any>() {
 
-    fun getMeal(id: String, code: String, date: String): Single<Meal> =
+    fun getMeal(id: String, code: String, date: String): Single<MealData> =
         remote.getMeal(id, code, date)
 }

@@ -1,6 +1,5 @@
 package com.meals.school_food.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.ScheduleInfo
@@ -13,7 +12,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleViewModel(
-    private val application: Application,
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
     val schoolName = MutableLiveData<String>()

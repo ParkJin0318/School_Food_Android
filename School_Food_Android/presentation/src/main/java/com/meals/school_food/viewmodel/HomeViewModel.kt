@@ -1,10 +1,9 @@
 package com.meals.school_food.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.usecase.GetScheduleUseCase
-import com.meals.domain.model.Meal
+import com.meals.domain.model.MealInfo
 import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
@@ -13,18 +12,17 @@ import com.meals.school_food.widget.extension.krDateFormat
 import com.meals.school_food.widget.extension.monthDateFormat
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
+import io.reactivex.Observable
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeViewModel(
-    private val application: Application,
     private val getMealUseCase: GetMealUseCase,
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
 
     val schoolName = MutableLiveData<String>()
-    private val officeCode = MutableLiveData<String>()
 
     val time = MutableLiveData<String>("아침")
     val date = MutableLiveData<String>()
@@ -61,8 +59,8 @@ class HomeViewModel(
 
     private fun getMeal() {
         addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(Date().dayDateFormat())),
-            object : DisposableSingleObserver<Meal>() {
-                override fun onSuccess(t: Meal) {
+            object : DisposableSingleObserver<MealInfo>() {
+                override fun onSuccess(t: MealInfo) {
                     addMealData(t)
                     isLoading.value = true
                 }
@@ -87,21 +85,15 @@ class HomeViewModel(
             })
     }
 
-    private fun addMealData(t: Meal) {
+    private fun addMealData(t: MealInfo) {
         morningList.clear()
         lunchList.clear()
         dinnerList.clear()
 
-        for (i in 0..2) {
-            t.meals[i]?.let {
-                when(i) {
-                    0 -> morningList.addAll(it.split("<br/>"))
-                    1 -> lunchList.addAll(it.split("<br/>"))
-                    2 -> dinnerList.addAll(it.split("<br/>"))
-                    else -> return@let
-                }
-            }
-        }
+        morningList.addAll(t.breakfast!!.split("<br/>"))
+        lunchList.addAll(t.lunch!!.split("<br/>"))
+        dinnerList.addAll(t.dinner!!.split("<br/>"))
+
         morningAdapter.notifyDataSetChanged()
         lunchAdapter.notifyDataSetChanged()
         dinnerAdapter.notifyDataSetChanged()

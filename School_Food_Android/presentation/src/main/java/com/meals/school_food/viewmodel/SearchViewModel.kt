@@ -1,6 +1,5 @@
 package com.meals.school_food.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.domain.model.SchoolInfo
@@ -54,7 +53,7 @@ class SearchViewModel(
 
                 }
                 override fun onError(e: Throwable) {
-                    TODO("Not yet implemented")
+
                 }
             })
         }

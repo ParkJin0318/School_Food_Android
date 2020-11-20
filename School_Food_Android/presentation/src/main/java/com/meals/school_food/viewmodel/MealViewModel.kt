@@ -1,9 +1,8 @@
 package com.meals.school_food.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetMealUseCase
-import com.meals.domain.model.Meal
+import com.meals.domain.model.MealInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.extension.getDateFormat
@@ -14,12 +13,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MealViewModel(
-    private val application: Application,
     private val getMealUseCase: GetMealUseCase
 ) : BaseViewModel() {
-
-    private val schoolId = MutableLiveData<String>()
-    private val officeCode = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
 
     val date = MutableLiveData<String>()
@@ -45,8 +40,8 @@ class MealViewModel(
 
     private fun getMeal(date : String) {
         addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(date)),
-            object : DisposableSingleObserver<Meal>() {
-                override fun onSuccess(t: Meal) {
+            object : DisposableSingleObserver<MealInfo>() {
+                override fun onSuccess(t: MealInfo) {
                     addMealData(t)
                     isLoading.value = true
                 }
@@ -57,19 +52,13 @@ class MealViewModel(
             })
     }
 
-    private fun addMealData(t: Meal) {
+    private fun addMealData(t: MealInfo) {
         clearMeal()
 
-        for (i in 0..2) {
-            t.meals[i]?.let {
-                when(i) {
-                    0 -> morningList.addAll(it.split("<br/>"))
-                    1 -> lunchList.addAll(it.split("<br/>"))
-                    2 -> dinnerList.addAll(it.split("<br/>"))
-                    else -> return@let
-                }
-            }
-        }
+        morningList.addAll(t.breakfast!!.split("<br/>"))
+        lunchList.addAll(t.lunch!!.split("<br/>"))
+        dinnerList.addAll(t.dinner!!.split("<br/>"))
+
         changeMeal()
     }
 
