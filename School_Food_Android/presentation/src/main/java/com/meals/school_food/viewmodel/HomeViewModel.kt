@@ -2,7 +2,6 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.Meal
@@ -55,38 +54,13 @@ class HomeViewModel(
         scheduleAdapter.setList(scheduleList)
 
         date.value = Date().krDateFormat()
-        getSchoolInformation()
+        getMeal()
+        getSchedule()
         isMorning.value = true
     }
 
-    private fun getSchoolInformation() {
-        SharedPreferenceManager.getSchoolName(application).let {
-            if (it != null) schoolName.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-        SharedPreferenceManager.getOfficeCode(application).let {
-            if (it != null) officeCode.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-        SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null) foundSchoolId(it)
-            else notFoundSchoolId("선택된 학교가 없습니다")
-        }
-    }
-
-    private fun foundSchoolId(id : String) {
-        getMeal(id)
-        getSchedule(id)
-    }
-
-    private fun notFoundSchoolId(text : String) {
-        mealCheck.value = text
-        scheduleCheck.value = text
-        isLoading.value = true
-    }
-
-    private fun getMeal(id : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(id, officeCode.value!!, Date().dayDateFormat())),
+    private fun getMeal() {
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(Date().dayDateFormat())),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)
@@ -99,8 +73,8 @@ class HomeViewModel(
             })
     }
 
-    private fun getSchedule(id : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, Date().monthDateFormat())),
+    private fun getSchedule() {
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(Date().monthDateFormat())),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
                     addScheduleData(t)

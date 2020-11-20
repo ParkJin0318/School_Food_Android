@@ -2,9 +2,7 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.usecase.GetScheduleUseCase
-import com.meals.data.network.response.ScheduleData
 import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.extension.dayDateFormat
@@ -18,9 +16,6 @@ class ScheduleViewModel(
     private val application: Application,
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
-
-    private val schoolId = MutableLiveData<String>()
-    private val officeCode = MutableLiveData<String>()
     val schoolName = MutableLiveData<String>()
     val information = MutableLiveData<String>()
 
@@ -29,33 +24,12 @@ class ScheduleViewModel(
 
     init {
         scheduleAdapter.setList(scheduleList)
-        getSchoolInformation()
 
-        if (schoolId.value != null) getSchedule(schoolId.value!!, Date().dayDateFormat())
+        getSchedule(Date().dayDateFormat())
     }
 
-    private fun getSchoolInformation() {
-        SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null) schoolId.value = it
-            else notFoundSchoolId("선택된 학교가 없습니다")
-        }
-        SharedPreferenceManager.getOfficeCode(application).let {
-            if (it != null) officeCode.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-        SharedPreferenceManager.getSchoolName(application).let {
-            if (it != null) schoolName.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-    }
-
-    private fun notFoundSchoolId(text : String) {
-        information.value = text
-        isLoading.value = true
-    }
-
-    private fun getSchedule(id: String, date : String) {
-        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, date)),
+    private fun getSchedule(date : String) {
+        addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(date)),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
                     addScheduleData(t)
@@ -78,12 +52,10 @@ class ScheduleViewModel(
     }
 
     fun calendarClick(year : Int, month : Int, day : Int) {
-        if (schoolId.value != null)  {
-            getSchedule(schoolId.value!!, "${year}${month+1}${day}".getDateFormat2())
-            scheduleList.clear()
-            scheduleAdapter.notifyDataSetChanged()
-            isLoading.value = false
-            information.value = null
-        }
+        getSchedule("${year}${month+1}${day}".getDateFormat2())
+        scheduleList.clear()
+        scheduleAdapter.notifyDataSetChanged()
+        isLoading.value = false
+        information.value = null
     }
 }

@@ -10,11 +10,9 @@ class GetMealUseCase(
 ) : ParamsUseCase<GetMealUseCase.Params, Single<Meal>>() {
 
     override fun buildUseCaseObservable(params: Params): Single<Meal> =
-        mealRepository.getMeal(params.id, params.code, params.date)
+        mealRepository.getMeal(params.date)
 
     data class Params(
-        val id: String,
-        val code: String,
         val date: String
     )
 }

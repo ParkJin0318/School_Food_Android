@@ -2,7 +2,6 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
@@ -41,36 +40,11 @@ class MealViewModel(
         dinnerAdapter.setList(dinnerList)
 
         date.value = Date().krDateFormat()
-        getSchoolInformation()
-    }
-
-    private fun getSchoolInformation() {
-        SharedPreferenceManager.getSchoolName(application).let {
-            if (it != null) schoolName.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-        SharedPreferenceManager.getOfficeCode(application).let {
-            if (it != null) officeCode.value = it
-            else schoolName.value = "선택된 학교가 없습니다"
-        }
-        SharedPreferenceManager.getSchoolId(application).let {
-            if (it != null)  foundSchoolId(it)
-            else notFoundSchoolId("선택된 학교가 없습니다")
-        }
-    }
-
-    private fun foundSchoolId(id : String) {
-        schoolId.value = id
         getMeal(date.value.toString().getDateFormat())
     }
 
-    private fun notFoundSchoolId(text : String) {
-        mealCheck.value = text
-        isLoading.value = true
-    }
-
     private fun getMeal(date : String) {
-        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(schoolId.value.toString(), officeCode.value!!, date)),
+        addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(date)),
             object : DisposableSingleObserver<Meal>() {
                 override fun onSuccess(t: Meal) {
                     addMealData(t)

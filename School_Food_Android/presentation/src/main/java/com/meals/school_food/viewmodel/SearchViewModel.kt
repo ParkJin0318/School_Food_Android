@@ -2,17 +2,18 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.SharedPreferenceManager
 import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.domain.model.SchoolInfo
-import com.meals.data.network.response.SchoolData
+import com.meals.domain.usecase.InsertSchoolUseCase
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.recyclerview.adapter.SchoolAdapter
+import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 
 class SearchViewModel(
-    private val getSearchUseCase: GetSchoolUseCase
+    private val getSearchUseCase: GetSchoolUseCase,
+    private val insertSchoolUseCase: InsertSchoolUseCase
 ): BaseViewModel() {
 
     val word = MutableLiveData<String>()
@@ -44,13 +45,20 @@ class SearchViewModel(
         schoolAdapter.notifyDataSetChanged()
     }
 
-    fun setSchoolInformation(application : Application) {
-        SharedPreferenceManager.setSchoolInformation(
-            application,
-            with(schoolList[schoolAdapter.click.value!!]) {
-                SchoolInfo(school_name, school_locate, office_code, school_id)
-            }
-        )
+    fun setSchoolInformation() {
+        with(schoolList[schoolAdapter.click.value!!]) {
+            val schoolInfo = SchoolInfo(school_name, school_locate, office_code, school_id)
+            addDisposable(insertSchoolUseCase.buildUseCaseObservable(InsertSchoolUseCase.Params(schoolInfo)),
+            object : DisposableCompletableObserver() {
+                override fun onComplete() {
+
+                }
+                override fun onError(e: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
     }
 
     fun searchClick() {

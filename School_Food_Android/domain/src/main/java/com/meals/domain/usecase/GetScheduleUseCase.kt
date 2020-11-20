@@ -10,11 +10,9 @@ class GetScheduleUseCase(
 ) : ParamsUseCase<GetScheduleUseCase.Params, Single<List<ScheduleInfo>>>() {
 
     override fun buildUseCaseObservable(params: Params): Single<List<ScheduleInfo>> =
-        scheduleRepository.getSchedules(params.id, params.code, params.date)
+        scheduleRepository.getSchedules(params.date)
 
     data class Params(
-        val id: String,
-        val code: String,
         val date: String
     )
 }

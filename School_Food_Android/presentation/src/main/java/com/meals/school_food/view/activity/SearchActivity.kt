@@ -23,7 +23,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 isLoading.value = true
             })
             schoolAdapter.click.observe(this@SearchActivity, Observer {
-                setSchoolInformation(application)
+                setSchoolInformation()
                 startActivity(MainActivity::class.java)
             })
         }
