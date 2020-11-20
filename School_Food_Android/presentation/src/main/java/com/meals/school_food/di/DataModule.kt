@@ -1,8 +1,8 @@
 package com.meals.school_food.di
 
-import com.meals.data.dataSource.MealDataSource
-import com.meals.data.dataSource.ScheduleDataSource
-import com.meals.data.dataSource.SchoolDataSource
+import com.meals.data.datasource.MealDataSource
+import com.meals.data.datasource.ScheduleDataSource
+import com.meals.data.datasource.SchoolDataSource
 import com.meals.data.network.remote.MealRemote
 import com.meals.data.network.remote.ScheduleRemote
 import com.meals.data.network.remote.SchoolRemote

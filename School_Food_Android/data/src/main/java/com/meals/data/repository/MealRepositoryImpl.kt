@@ -1,6 +1,6 @@
 package com.meals.data.repository
 
-import com.meals.data.dataSource.MealDataSource
+import com.meals.data.datasource.MealDataSource
 import com.meals.domain.model.Meal
 import com.meals.domain.repository.MealRepository
 import io.reactivex.Single

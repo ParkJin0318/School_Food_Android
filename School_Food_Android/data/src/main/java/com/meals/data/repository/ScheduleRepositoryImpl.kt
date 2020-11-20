@@ -1,6 +1,6 @@
 package com.meals.data.repository
 
-import com.meals.data.dataSource.ScheduleDataSource
+import com.meals.data.datasource.ScheduleDataSource
 import com.meals.domain.model.Schedule
 import com.meals.domain.repository.ScheduleRepository
 import io.reactivex.Single

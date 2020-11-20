@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/School_Food.iml" filepath="$PROJECT_DIR$/.idea/modules/School_Food.iml" group="School_Food" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/data.iml" group="School_Food/data" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain.iml" group="School_Food/domain" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/presentation/presentation.iml" filepath="$PROJECT_DIR$/.idea/modules/presentation/presentation.iml" group="School_Food/presentation" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/School_Food.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/School_Food.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/School_Food.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/School_Food.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/presentation/School_Food.presentation.iml" filepath="$PROJECT_DIR$/.idea/modules/presentation/School_Food.presentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/School_Food_Android.School_Food.iml" filepath="$PROJECT_DIR$/.idea/modules/School_Food_Android.School_Food.iml" />
     </modules>
   </component>
 </project>
