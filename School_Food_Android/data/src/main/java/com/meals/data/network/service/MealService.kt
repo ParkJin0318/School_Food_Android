@@ -1,6 +1,6 @@
 package com.meals.data.network.service
 
-import com.meals.data.network.data.Response
+import com.meals.data.network.response.Response
 import com.meals.domain.model.Meal
 import io.reactivex.Single
 import retrofit2.http.GET

@@ -35,5 +35,12 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
 
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    testImplementation "androidx.room:room-testing:$rootProject.room_version"
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
+
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
     implementation project(':domain')
 }

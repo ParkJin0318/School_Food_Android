@@ -2,7 +2,7 @@ package com.meals.data.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.meals.domain.model.SchoolInformation
+import com.meals.domain.model.SchoolInfo
 
 object SharedPreferenceManager {
     private const val PREF_SCHOOL_ID = "school_id"
@@ -10,7 +10,7 @@ object SharedPreferenceManager {
     private const val PREF_SCHOOL_NAME = "school_name"
     private const val PREF_SCHOOL_ADDRESS = "school_address"
 
-    fun setSchoolInformation(context: Context, school: SchoolInformation) {
+    fun setSchoolInformation(context: Context, school: SchoolInfo) {
         with(getDefaultSharedPreferences(context).edit()) {
             putString(PREF_SCHOOL_ID, school.school_id).apply()
             putString(PREF_OFFICE_CODE, school.office_code).apply()

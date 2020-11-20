@@ -1,4 +1,4 @@
-package com.meals.data.network.data
+package com.meals.data.network.response
 
 data class Response<T>(
     val status: Int,

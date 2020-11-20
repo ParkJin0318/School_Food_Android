@@ -2,9 +2,8 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.Constants
 import com.meals.data.util.SharedPreferenceManager
-import com.meals.domain.dataSource.GetMealUseCase
+import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.model.Meal
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
@@ -12,7 +11,6 @@ import com.meals.school_food.widget.extension.getDateFormat
 import com.meals.school_food.widget.extension.krDateFormat
 import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import io.reactivex.observers.DisposableSingleObserver
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 

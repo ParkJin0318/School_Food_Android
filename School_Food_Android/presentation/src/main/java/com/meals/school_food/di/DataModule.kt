@@ -9,9 +9,9 @@ import com.meals.data.network.remote.SchoolRemote
 import com.meals.data.repository.MealRepositoryImpl
 import com.meals.data.repository.ScheduleRepositoryImpl
 import com.meals.data.repository.SchoolRepositoryImpl
-import com.meals.domain.dataSource.GetMealUseCase
-import com.meals.domain.dataSource.GetScheduleUseCase
-import com.meals.domain.dataSource.GetSchoolUseCase
+import com.meals.domain.usecase.GetMealUseCase
+import com.meals.domain.usecase.GetScheduleUseCase
+import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.domain.repository.MealRepository
 import com.meals.domain.repository.ScheduleRepository
 import com.meals.domain.repository.SchoolRepository
@@ -24,9 +24,9 @@ val remoteModule = module {
 }
 
 val dataSourceModule = module {
-    single { MealDataSource(get()) }
-    single { ScheduleDataSource(get()) }
-    single { SchoolDataSource(get()) }
+    single { MealDataSource(get(), Any()) }
+    single { ScheduleDataSource(get(), Any()) }
+    single { SchoolDataSource(get(), get()) }
 }
 
 val repositoryModule = module {

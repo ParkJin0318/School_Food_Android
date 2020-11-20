@@ -1,4 +1,4 @@
-package com.meals.domain.dataSource
+package com.meals.domain.usecase
 
 import com.meals.domain.base.ParamsUseCase
 import com.meals.domain.model.Meal

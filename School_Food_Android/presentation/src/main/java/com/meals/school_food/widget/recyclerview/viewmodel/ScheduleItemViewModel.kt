@@ -2,7 +2,7 @@ package com.meals.school_food.widget.recyclerview.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.meals.domain.model.DetailSchedule
+import com.meals.domain.model.ScheduleInfo
 import java.text.SimpleDateFormat
 
 class ScheduleItemViewModel : ViewModel() {
@@ -10,7 +10,7 @@ class ScheduleItemViewModel : ViewModel() {
     val date = MutableLiveData<String>()
     val name = MutableLiveData<String>()
 
-    fun bind(schedule: DetailSchedule) {
+    fun bind(schedule: ScheduleInfo) {
         date.value = getDateFormat(schedule.date)
         name.value = schedule.name
     }

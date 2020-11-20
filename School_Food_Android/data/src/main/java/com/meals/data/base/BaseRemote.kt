@@ -1,6 +1,6 @@
 package com.meals.data.base
 
-import com.meals.data.network.data.Response
+import com.meals.data.network.response.Response
 import io.reactivex.functions.Function
 import org.json.JSONObject
 

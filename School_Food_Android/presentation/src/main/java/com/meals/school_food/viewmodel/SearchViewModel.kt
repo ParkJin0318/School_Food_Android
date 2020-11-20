@@ -3,9 +3,9 @@ package com.meals.school_food.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.data.util.SharedPreferenceManager
-import com.meals.domain.dataSource.GetSchoolUseCase
-import com.meals.domain.model.SchoolInformation
-import com.meals.domain.model.School
+import com.meals.domain.usecase.GetSchoolUseCase
+import com.meals.domain.model.SchoolInfo
+import com.meals.data.network.response.SchoolData
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.recyclerview.adapter.SchoolAdapter
@@ -19,7 +19,7 @@ class SearchViewModel(
     val searchEvent = SingleLiveEvent<Unit>()
 
     val schoolAdapter = SchoolAdapter()
-    private val schoolList = ArrayList<SchoolInformation>()
+    private val schoolList = ArrayList<SchoolInfo>()
 
     init {
         schoolAdapter.setList(schoolList)
@@ -27,8 +27,8 @@ class SearchViewModel(
 
     fun getSchools() {
         addDisposable(getSearchUseCase.buildUseCaseObservable(GetSchoolUseCase.Params(word.value.toString())),
-            object : DisposableSingleObserver<School>() {
-                override fun onSuccess(t: School) {
+            object : DisposableSingleObserver<List<SchoolInfo>>() {
+                override fun onSuccess(t: List<SchoolInfo>) {
                     addData(t)
                     isLoading.value = false
                 }
@@ -36,10 +36,10 @@ class SearchViewModel(
             })
     }
 
-    fun addData(t: School) {
+    fun addData(t: List<SchoolInfo>) {
         schoolList.clear()
-        t.schools.forEach {
-            schoolList.add(SchoolInformation(it.school_name, it.school_locate, it.office_code, it.school_id))
+        t.forEach {
+            schoolList.add(SchoolInfo(it.school_name, it.school_locate, it.office_code, it.school_id))
         }
         schoolAdapter.notifyDataSetChanged()
     }
@@ -48,7 +48,7 @@ class SearchViewModel(
         SharedPreferenceManager.setSchoolInformation(
             application,
             with(schoolList[schoolAdapter.click.value!!]) {
-                SchoolInformation(school_name, school_locate, office_code, school_id)
+                SchoolInfo(school_name, school_locate, office_code, school_id)
             }
         )
     }

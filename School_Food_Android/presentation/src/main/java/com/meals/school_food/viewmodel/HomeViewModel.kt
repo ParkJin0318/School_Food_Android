@@ -3,11 +3,10 @@ package com.meals.school_food.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.meals.data.util.SharedPreferenceManager
-import com.meals.domain.dataSource.GetMealUseCase
-import com.meals.domain.dataSource.GetScheduleUseCase
-import com.meals.domain.model.DetailSchedule
+import com.meals.domain.usecase.GetMealUseCase
+import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.Meal
-import com.meals.domain.model.Schedule
+import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.extension.dayDateFormat
@@ -47,7 +46,7 @@ class HomeViewModel(
     private val morningList = ArrayList<String>()
     private val lunchList = ArrayList<String>()
     private val dinnerList = ArrayList<String>()
-    private val scheduleList = ArrayList<DetailSchedule>()
+    private val scheduleList = ArrayList<ScheduleInfo>()
 
     init {
         morningAdapter.setList(morningList)
@@ -102,8 +101,8 @@ class HomeViewModel(
 
     private fun getSchedule(id : String) {
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, Date().monthDateFormat())),
-            object : DisposableSingleObserver<Schedule>() {
-                override fun onSuccess(t: Schedule) {
+            object : DisposableSingleObserver<List<ScheduleInfo>>() {
+                override fun onSuccess(t: List<ScheduleInfo>) {
                     addScheduleData(t)
                     isLoading.value = true
                 }
@@ -134,9 +133,9 @@ class HomeViewModel(
         dinnerAdapter.notifyDataSetChanged()
     }
 
-    private fun addScheduleData(t: Schedule) {
+    private fun addScheduleData(t: List<ScheduleInfo>) {
         scheduleList.clear()
-        t.schedules.forEach {
+        t.forEach {
             scheduleList.add(it)
         }
         scheduleAdapter.notifyDataSetChanged()

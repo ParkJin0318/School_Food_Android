@@ -2,17 +2,15 @@ package com.meals.school_food.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.meals.data.util.Constants
 import com.meals.data.util.SharedPreferenceManager
-import com.meals.domain.dataSource.GetScheduleUseCase
-import com.meals.domain.model.DetailSchedule
-import com.meals.domain.model.Schedule
+import com.meals.domain.usecase.GetScheduleUseCase
+import com.meals.data.network.response.ScheduleData
+import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.extension.dayDateFormat
 import com.meals.school_food.widget.extension.getDateFormat2
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,7 +24,7 @@ class ScheduleViewModel(
     val schoolName = MutableLiveData<String>()
     val information = MutableLiveData<String>()
 
-    private val scheduleList = ArrayList<DetailSchedule>()
+    private val scheduleList = ArrayList<ScheduleInfo>()
     val scheduleAdapter = ScheduleAdapter()
 
     init {
@@ -58,8 +56,8 @@ class ScheduleViewModel(
 
     private fun getSchedule(id: String, date : String) {
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(id, officeCode.value!!, date)),
-            object : DisposableSingleObserver<Schedule>() {
-                override fun onSuccess(t: Schedule) {
+            object : DisposableSingleObserver<List<ScheduleInfo>>() {
+                override fun onSuccess(t: List<ScheduleInfo>) {
                     addScheduleData(t)
                     information.value = null
                     isLoading.value = true
@@ -71,9 +69,9 @@ class ScheduleViewModel(
             })
     }
 
-    private fun addScheduleData(t: Schedule) {
+    private fun addScheduleData(t: List<ScheduleInfo>) {
         scheduleList.clear()
-        t.schedules.forEach {
+        t.forEach {
             scheduleList.add(it)
         }
         scheduleAdapter.notifyDataSetChanged()
