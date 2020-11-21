@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.date}"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
+                android:textColor="@android:color/white"
                 android:fontFamily="@font/nanum_square_round"
                 android:background="@drawable/background_primary"
                 tools:text="2020년 07월 01일"/>

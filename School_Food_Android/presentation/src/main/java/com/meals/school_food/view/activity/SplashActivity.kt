@@ -1,5 +1,6 @@
 package com.meals.school_food.view.activity
 
+import android.os.Handler
 import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseActivity
@@ -16,13 +17,23 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val layoutRes: Int
         get() = R.layout.activity_splash
 
+    private val handler = Handler()
+
+    private val runnableMain = Runnable {
+        startActivityWithFinish(MainActivity::class.java)
+    }
+
+    private val runnableSearch = Runnable {
+        startActivityWithFinish(SearchActivity::class.java)
+    }
+
     override fun observerViewModel() {
         with(viewModel) {
             onSuccessEvent.observe(this@SplashActivity, Observer {
-                startActivityWithFinish(MainActivity::class.java)
+                handler.postDelayed(runnableMain, 1000)
             })
             onErrorEvent.observe(this@SplashActivity, Observer {
-                startActivityWithFinish(SearchActivity::class.java)
+                handler.postDelayed(runnableSearch, 1000)
             })
         }
     }
