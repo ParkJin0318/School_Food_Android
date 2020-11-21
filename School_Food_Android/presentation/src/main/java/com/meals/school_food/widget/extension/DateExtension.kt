@@ -34,10 +34,3 @@ fun String.getDateFormat() : String {
     val date = beforeFormat.parse(this)!!
     return afterFormat.format(date)
 }
-
-fun String.getDateFormat2() : String {
-    val beforeFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-    val afterFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-    val date = beforeFormat.parse(this)!!
-    return afterFormat.format(date)
-}

@@ -134,7 +134,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="20dp"
-                        android:src="@drawable/ic_code" />
+                        android:src="@drawable/ic_accept" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="20dp"
-                        android:src="@drawable/ic_version" />
+                        android:src="@drawable/ic_info" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -9,7 +9,6 @@ import com.meals.school_food.widget.extension.getDateFormat
 import com.meals.school_food.widget.extension.krDateFormat
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MealViewModel(
     private val getMealUseCase: GetMealUseCase

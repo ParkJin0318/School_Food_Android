@@ -1,13 +1,10 @@
 package com.meals.school_food.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.extension.dayDateFormat
-import com.meals.school_food.widget.extension.getDateFormat
-import com.meals.school_food.widget.extension.getDateFormat2
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
@@ -45,7 +42,7 @@ class ScheduleViewModel(
     }
 
     fun calendarClick(year : Int, month : Int, day : Int) {
-        val date = "%04d%02d%02d".format(year, month + 1, day).getDateFormat2()
+        val date = "%04d%02d%02d".format(year, month + 1, day)
         getSchedule(date)
         scheduleList.clear()
         scheduleAdapter.notifyDataSetChanged()
