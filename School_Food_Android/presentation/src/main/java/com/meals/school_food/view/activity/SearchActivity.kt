@@ -10,6 +10,7 @@ import com.meals.school_food.base.BaseActivity
 import com.meals.school_food.databinding.ActivitySearchBinding
 import com.meals.school_food.viewmodel.SearchViewModel
 import com.meals.school_food.widget.extension.startActivityWithFinish
+import com.meals.school_food.widget.extension.toast
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
@@ -32,8 +33,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 isLoading.value = true
             })
             schoolAdapter.click.observe(this@SearchActivity, Observer {
-                setSchoolInformation()
+                setSchoolInfo()
+            })
+            onSuccessEvent.observe(this@SearchActivity, Observer {
                 startActivityWithFinish(MainActivity::class.java)
+            })
+            onErrorEvent.observe(this@SearchActivity, Observer {
+                toast(it.toString())
             })
         }
     }

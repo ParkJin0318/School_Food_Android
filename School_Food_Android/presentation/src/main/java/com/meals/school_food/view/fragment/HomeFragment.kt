@@ -46,6 +46,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     }
                 }
             })
+            onErrorEvent.observe(this@HomeFragment, Observer {
+                mealText.value = it
+                time.value = "X"
+                binding.mealImage.setImageResource(R.drawable.ic_error)
+            })
         }
     }
 

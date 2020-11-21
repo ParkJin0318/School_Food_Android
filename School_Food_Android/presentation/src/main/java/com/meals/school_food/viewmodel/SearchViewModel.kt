@@ -21,6 +21,9 @@ class SearchViewModel(
     val schoolAdapter = SchoolAdapter()
     private val schoolList = ArrayList<SchoolInfo>()
 
+    val onSuccessEvent = SingleLiveEvent<Unit>()
+    val onErrorEvent = SingleLiveEvent<String>()
+
     init {
         schoolAdapter.setList(schoolList)
     }
@@ -29,35 +32,35 @@ class SearchViewModel(
         addDisposable(getSearchUseCase.buildUseCaseObservable(GetAllSchoolUseCase.Params(word.value.toString())),
             object : DisposableSingleObserver<List<SchoolInfo>>() {
                 override fun onSuccess(t: List<SchoolInfo>) {
-                    addData(t)
+                    schoolList.clear()
+                    schoolList.addAll(t)
+                    schoolAdapter.notifyDataSetChanged()
+
                     isLoading.value = false
                 }
-                override fun onError(e: Throwable) { }
+                override fun onError(e: Throwable) {
+                    onErrorEvent.value = e.message
+                }
             })
     }
 
-    fun addData(t: List<SchoolInfo>) {
-        schoolList.clear()
-        t.forEach {
-            schoolList.add(SchoolInfo(it.school_name, it.school_locate, it.office_code, it.school_id))
-        }
-        schoolAdapter.notifyDataSetChanged()
-    }
-
-    fun setSchoolInformation() {
+    fun setSchoolInfo() {
         with(schoolList[schoolAdapter.click.value!!]) {
             val schoolInfo = SchoolInfo(school_name, school_locate, office_code, school_id)
-            addDisposable(insertSchoolUseCase.buildUseCaseObservable(InsertSchoolUseCase.Params(schoolInfo)),
+            insertSchoolInfo(schoolInfo)
+        }
+    }
+
+    private fun insertSchoolInfo(schoolInfo: SchoolInfo) {
+        addDisposable(insertSchoolUseCase.buildUseCaseObservable(InsertSchoolUseCase.Params(schoolInfo)),
             object : DisposableCompletableObserver() {
                 override fun onComplete() {
-
+                    onSuccessEvent.call()
                 }
                 override fun onError(e: Throwable) {
-
+                    onErrorEvent.value = e.message
                 }
             })
-        }
-
     }
 
     fun searchClick() {

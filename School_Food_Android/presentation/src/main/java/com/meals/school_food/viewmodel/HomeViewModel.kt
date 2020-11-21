@@ -31,6 +31,7 @@ class HomeViewModel(
 
     val onScheduleDetailEvent = SingleLiveEvent<Unit>()
     val onMealDetailEvent = SingleLiveEvent<Unit>()
+    val onErrorEvent = SingleLiveEvent<String>()
 
     init {
         scheduleAdapter.setList(scheduleList)
@@ -46,7 +47,7 @@ class HomeViewModel(
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-                    mealText.value = e.message
+                    onErrorEvent.value = e.message
                     isLoading.value = true
                 }
             })
