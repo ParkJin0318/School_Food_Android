@@ -1,10 +1,12 @@
 package com.meals.school_food.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.ScheduleInfo
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.extension.dayDateFormat
+import com.meals.school_food.widget.extension.getDateFormat
 import com.meals.school_food.widget.extension.getDateFormat2
 import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
@@ -14,7 +16,6 @@ import kotlin.collections.ArrayList
 class ScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
-    val schoolName = MutableLiveData<String>()
     val information = MutableLiveData<String>()
 
     private val scheduleList = ArrayList<ScheduleInfo>()
@@ -22,7 +23,6 @@ class ScheduleViewModel(
 
     init {
         scheduleAdapter.setList(scheduleList)
-
         getSchedule(Date().dayDateFormat())
     }
 
@@ -30,7 +30,10 @@ class ScheduleViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(date)),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
-                    addScheduleData(t)
+                    scheduleList.clear()
+                    scheduleList.addAll(t)
+                    scheduleAdapter.notifyDataSetChanged()
+
                     information.value = null
                     isLoading.value = true
                 }
@@ -41,16 +44,9 @@ class ScheduleViewModel(
             })
     }
 
-    private fun addScheduleData(t: List<ScheduleInfo>) {
-        scheduleList.clear()
-        t.forEach {
-            scheduleList.add(it)
-        }
-        scheduleAdapter.notifyDataSetChanged()
-    }
-
     fun calendarClick(year : Int, month : Int, day : Int) {
-        getSchedule("${year}${month+1}${day}".getDateFormat2())
+        val date = "%04d%02d%02d".format(year, month + 1, day).getDateFormat2()
+        getSchedule(date)
         scheduleList.clear()
         scheduleAdapter.notifyDataSetChanged()
         isLoading.value = false

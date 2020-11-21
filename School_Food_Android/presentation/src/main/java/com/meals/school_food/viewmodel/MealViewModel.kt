@@ -14,14 +14,11 @@ import kotlin.collections.ArrayList
 class MealViewModel(
     private val getMealUseCase: GetMealUseCase
 ) : BaseViewModel() {
-    val schoolName = MutableLiveData<String>()
-
     val breakfast = MutableLiveData<String>()
     val lunch = MutableLiveData<String>()
     val dinner = MutableLiveData<String>()
 
     val date = MutableLiveData<String>()
-    val mealCheck = MutableLiveData<String>()
     val dateEvent = SingleLiveEvent<Unit>()
 
     init {
@@ -40,7 +37,10 @@ class MealViewModel(
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-                    mealCheck.value = "급식이 없습니다"
+                    breakfast.value = e.message
+                    lunch.value = e.message
+                    dinner.value = e.message
+
                     isLoading.value = true
                 }
             })
@@ -50,7 +50,6 @@ class MealViewModel(
         date.value = "${year}년 ${month}월 ${day}일"
         getMeal(date.value.toString().getDateFormat())
         isLoading.value = false
-        mealCheck.value = null
     }
 
     fun dateClick() {

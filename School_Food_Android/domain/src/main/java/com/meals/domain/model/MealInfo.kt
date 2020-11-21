@@ -22,13 +22,15 @@ class MealInfo(
         }
 
     private fun filterMeal(mealRaw: String?): String? {
-        val lines = mealRaw!!.split("<br/>").toTypedArray()
         val stringBuilder = StringBuilder()
-        for (i in lines.indices) {
-            val line = lines[i]
-            if (i == lines.size - 1) stringBuilder.append(line) else stringBuilder.append(line).append(
-                "\n"
-            )
+        stringBuilder.append("급식이 없습니다")
+        mealRaw?.let {
+            stringBuilder.clear()
+            val lines = it.split("<br/>").toTypedArray()
+            for (i in lines.indices) {
+                val line = lines[i]
+                if (i == lines.size - 1) stringBuilder.append(line) else stringBuilder.append(line).append("\n")
+            }
         }
         return stringBuilder.toString()
     }
