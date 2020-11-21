@@ -13,10 +13,9 @@ class MealRepositoryImpl(
 ): MealRepository {
 
     override fun getMeal(date: String): Single<MealInfo> =
-        schoolDataSource.getSchool().flatMap {
-            mealDataSource.getMeal(it.school_id, it.office_code, date).map { mealList ->
-                val meal = mealList.meals
-                return@map MealInfo(meal[0], meal[1], meal[2])
+        schoolDataSource.getSchool().flatMap { school ->
+            mealDataSource.getMeal(school.school_id, school.office_code, date).map { mealList ->
+                MealInfo(mealList[0], mealList[1], mealList[2])
             }
         }
 }

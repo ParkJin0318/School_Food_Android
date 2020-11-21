@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.fragment.MealFragment">
+    tools:context=".view.activity.MealActivity">
 
     <data>
         <import type="android.view.View" />
@@ -99,16 +99,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="36dp"
                         android:layout_marginBottom="8dp"
-                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-                        app:adapter="@{viewModel.morningAdapter}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_meal" />
+                        android:text="@{viewModel.breakfast}"
+                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
 
                     <ProgressBar
                         android:id="@+id/progressBar"
@@ -158,17 +155,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView3"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="36dp"
                         android:layout_marginBottom="8dp"
-                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-                        app:adapter="@{viewModel.lunchAdapter}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/item_meal" />
+                        android:text="@{viewModel.lunch}"
+                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
 
                     <ProgressBar
                         android:id="@+id/progressBar3"
@@ -218,16 +211,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView2"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="36dp"
                         android:layout_marginBottom="8dp"
-                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-                        app:adapter="@{viewModel.dinnerAdapter}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_meal" />
+                        android:text="@{viewModel.dinner}"
+                        android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
 
                     <ProgressBar
                         android:id="@+id/progressBar2"

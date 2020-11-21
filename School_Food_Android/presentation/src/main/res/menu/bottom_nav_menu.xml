@@ -7,16 +7,6 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_meal"
-        android:icon="@drawable/ic_meal"
-        android:title="@string/title_meal" />
-
-    <item
-        android:id="@+id/navigation_schedule"
-        android:icon="@drawable/ic_calendar"
-        android:title="@string/title_schedule" />
-
-    <item
         android:id="@+id/navigation_menu"
         android:icon="@drawable/ic_menu"
         android:title="@string/title_menu" />

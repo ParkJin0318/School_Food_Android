@@ -10,14 +10,12 @@ import com.meals.data.network.remote.SchoolRemote
 import com.meals.data.repository.MealRepositoryImpl
 import com.meals.data.repository.ScheduleRepositoryImpl
 import com.meals.data.repository.SchoolRepositoryImpl
-import com.meals.domain.usecase.GetMealUseCase
-import com.meals.domain.usecase.GetScheduleUseCase
-import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.domain.repository.MealRepository
 import com.meals.domain.repository.ScheduleRepository
 import com.meals.domain.repository.SchoolRepository
-import com.meals.domain.usecase.InsertSchoolUseCase
+import com.meals.domain.usecase.*
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val remoteModule = module {
     single { MealRemote(get()) }
@@ -44,6 +42,7 @@ val repositoryModule = module {
 val useCaseModule = module {
     single { GetMealUseCase(get()) }
     single { GetScheduleUseCase(get()) }
+    single { GetAllSchoolUseCase(get()) }
     single { GetSchoolUseCase(get()) }
     single { InsertSchoolUseCase(get()) }
 }

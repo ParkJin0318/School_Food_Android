@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 class SchoolRepositoryImpl(private val schoolDataSource: SchoolDataSource): SchoolRepository {
 
-    override fun getSchools(name: String): Single<List<SchoolInfo>> = schoolDataSource.getAllSchool(name)
+    override fun getAllSchool(name: String): Single<List<SchoolInfo>> = schoolDataSource.getAllSchool(name)
 
     override fun getSchool(): Single<SchoolInfo> = schoolDataSource.getSchool()
 

@@ -7,7 +7,6 @@ import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
 import com.meals.school_food.widget.extension.getDateFormat
 import com.meals.school_food.widget.extension.krDateFormat
-import com.meals.school_food.widget.recyclerview.adapter.MealAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
 import kotlin.collections.ArrayList
@@ -17,23 +16,15 @@ class MealViewModel(
 ) : BaseViewModel() {
     val schoolName = MutableLiveData<String>()
 
+    val breakfast = MutableLiveData<String>()
+    val lunch = MutableLiveData<String>()
+    val dinner = MutableLiveData<String>()
+
     val date = MutableLiveData<String>()
     val mealCheck = MutableLiveData<String>()
     val dateEvent = SingleLiveEvent<Unit>()
 
-    val morningAdapter = MealAdapter()
-    val lunchAdapter = MealAdapter()
-    val dinnerAdapter = MealAdapter()
-
-    private val morningList = ArrayList<String>()
-    private val lunchList = ArrayList<String>()
-    private val dinnerList = ArrayList<String>()
-
     init {
-        morningAdapter.setList(morningList)
-        lunchAdapter.setList(lunchList)
-        dinnerAdapter.setList(dinnerList)
-
         date.value = Date().krDateFormat()
         getMeal(date.value.toString().getDateFormat())
     }
@@ -42,7 +33,10 @@ class MealViewModel(
         addDisposable(getMealUseCase.buildUseCaseObservable(GetMealUseCase.Params(date)),
             object : DisposableSingleObserver<MealInfo>() {
                 override fun onSuccess(t: MealInfo) {
-                    addMealData(t)
+                    breakfast.value = t.breakfast
+                    lunch.value = t.lunch
+                    dinner.value = t.dinner
+
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
@@ -52,35 +46,11 @@ class MealViewModel(
             })
     }
 
-    private fun addMealData(t: MealInfo) {
-        clearMeal()
-
-        morningList.addAll(t.breakfast!!.split("<br/>"))
-        lunchList.addAll(t.lunch!!.split("<br/>"))
-        dinnerList.addAll(t.dinner!!.split("<br/>"))
-
-        changeMeal()
-    }
-
     fun setDate(year : Int, month : Int, day : Int) {
         date.value = "${year}년 ${month}월 ${day}일"
         getMeal(date.value.toString().getDateFormat())
-        clearMeal()
-        changeMeal()
         isLoading.value = false
         mealCheck.value = null
-    }
-    
-    private fun clearMeal() {
-        morningList.clear()
-        lunchList.clear()
-        dinnerList.clear()
-    }
-
-    private fun changeMeal() {
-        morningAdapter.notifyDataSetChanged()
-        lunchAdapter.notifyDataSetChanged()
-        dinnerAdapter.notifyDataSetChanged()
     }
 
     fun dateClick() {

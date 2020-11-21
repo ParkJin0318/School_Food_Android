@@ -1,7 +1,7 @@
 package com.meals.school_food.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.meals.domain.usecase.GetSchoolUseCase
+import com.meals.domain.usecase.GetAllSchoolUseCase
 import com.meals.domain.model.SchoolInfo
 import com.meals.domain.usecase.InsertSchoolUseCase
 import com.meals.school_food.base.BaseViewModel
@@ -11,7 +11,7 @@ import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 
 class SearchViewModel(
-    private val getSearchUseCase: GetSchoolUseCase,
+    private val getSearchUseCase: GetAllSchoolUseCase,
     private val insertSchoolUseCase: InsertSchoolUseCase
 ): BaseViewModel() {
 
@@ -26,7 +26,7 @@ class SearchViewModel(
     }
 
     fun getSchools() {
-        addDisposable(getSearchUseCase.buildUseCaseObservable(GetSchoolUseCase.Params(word.value.toString())),
+        addDisposable(getSearchUseCase.buildUseCaseObservable(GetAllSchoolUseCase.Params(word.value.toString())),
             object : DisposableSingleObserver<List<SchoolInfo>>() {
                 override fun onSuccess(t: List<SchoolInfo>) {
                     addData(t)

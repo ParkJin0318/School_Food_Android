@@ -5,7 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface SchoolRepository {
-    fun getSchools(name: String): Single<List<SchoolInfo>>
+    fun getAllSchool(name: String): Single<List<SchoolInfo>>
 
     fun getSchool(): Single<SchoolInfo>
 

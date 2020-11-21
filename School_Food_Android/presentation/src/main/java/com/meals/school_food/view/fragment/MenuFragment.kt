@@ -19,8 +19,6 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
     override val layoutRes: Int
         get() = R.layout.fragment_menu
 
-    override fun init() { }
-
     override fun observerViewModel() {
         with(viewModel) {
             schoolChangeEvent.observe(this@MenuFragment, Observer {

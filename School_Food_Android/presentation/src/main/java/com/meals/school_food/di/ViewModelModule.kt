@@ -6,10 +6,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
+    viewModel { SplashViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { MealViewModel(get()) }
     viewModel { ScheduleViewModel(get()) }
-    viewModel { MenuViewModel() }
+    viewModel { MenuViewModel(get()) }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { VersionViewModel(androidApplication()) }
     viewModel { OpenSourceViewModel() }

@@ -24,8 +24,8 @@ class SchoolAdapter : RecyclerView.Adapter<SchoolAdapter.ViewHolder>(){
         private val viewModel = SchoolItemViewModel()
 
         fun bind(detailSearch: SchoolInfo) {
-            binding.teName.isSelected = true
-            binding.teAddress.isSelected = true
+            binding.name.isSelected = true
+            binding.address.isSelected = true
 
             viewModel.bind(detailSearch)
             binding.viewModel = viewModel

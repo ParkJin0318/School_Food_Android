@@ -10,6 +10,6 @@ class MealDataSource(
     override val cache: Any
 ) : BaseDataSource<MealRemote, Any>() {
 
-    fun getMeal(id: String, code: String, date: String): Single<MealData> =
+    fun getMeal(id: String, code: String, date: String): Single<List<String?>> =
         remote.getMeal(id, code, date)
 }

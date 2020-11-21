@@ -5,6 +5,10 @@
     <color name="colorAccent">#27E0A7</color>
 
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorGray">#CED5D6</color>
+    <color name="colorGray">#EEEEEF</color>
     <color name="colorBlack">#000000</color>
+
+    <color name="colorText">#4A4A4A</color>
+    <color name="colorTextLight">#5C5C5C</color>
+    <color name="colorStatusBar">#EEEEEF</color>
 </resources>

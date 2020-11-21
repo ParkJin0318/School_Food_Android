@@ -12,18 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_meal"
-        android:name="com.meals.school_food.view.fragment.MealFragment"
-        android:label="@string/title_meal"
-        tools:layout="@layout/fragment_meal" />
-
-    <fragment
-        android:id="@+id/navigation_schedule"
-        android:name="com.meals.school_food.view.fragment.ScheduleFragment"
-        android:label="@string/title_schedule"
-        tools:layout="@layout/fragment_schedule" />
-
-    <fragment
         android:id="@+id/navigation_menu"
         android:name="com.meals.school_food.view.fragment.MenuFragment"
         android:label="@string/title_menu"
