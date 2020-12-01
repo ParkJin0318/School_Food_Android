@@ -1,0 +1,6 @@
+framework module Pods_School_Food_iOS_V2 {
+  umbrella header "Pods-School_Food_iOS_V2-umbrella.h"
+
+  export *
+  module * { export * }
+}
