@@ -42,9 +42,9 @@ class MainViewController: UIViewController, StoryboardView {
             .subscribe(onNext: { [weak self] value in
                 guard let self = self else { return }
                 if(value){
-                    //로딩 중
+                    self.startIndicatingActivity()
                 }else{
-                    // 로딩 끝
+                    self.stopIndicatingActivity()
                 }
             }).disposed(by: disposeBag)
     }
