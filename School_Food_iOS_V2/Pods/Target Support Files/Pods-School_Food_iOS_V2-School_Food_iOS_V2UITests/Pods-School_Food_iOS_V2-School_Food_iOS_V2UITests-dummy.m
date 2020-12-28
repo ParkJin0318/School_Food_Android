@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_School_Food_iOS_V2_School_Food_iOS_V2UITests : NSObject
-@end
-@implementation PodsDummy_Pods_School_Food_iOS_V2_School_Food_iOS_V2UITests
-@end
