@@ -4,38 +4,32 @@ import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetAllSchoolUseCase
 import com.meals.domain.model.SchoolInfo
 import com.meals.domain.usecase.InsertSchoolUseCase
+import com.meals.school_food.R
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
-import com.meals.school_food.widget.recyclerview.adapter.SchoolAdapter
+import com.meals.school_food.widget.adapter.RecyclerItem
+import com.meals.school_food.widget.navigator.SchoolItemNavigator
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 
 class SearchViewModel(
     private val getSearchUseCase: GetAllSchoolUseCase,
     private val insertSchoolUseCase: InsertSchoolUseCase
-): BaseViewModel() {
+): BaseViewModel(), SchoolItemNavigator {
 
     val word = MutableLiveData<String>()
     val searchEvent = SingleLiveEvent<Unit>()
 
-    val schoolAdapter = SchoolAdapter()
-    private val schoolList = ArrayList<SchoolInfo>()
+    val schoolItemList = MutableLiveData<ArrayList<RecyclerItem>>()
 
     val onSuccessEvent = SingleLiveEvent<Unit>()
     val onErrorEvent = SingleLiveEvent<String>()
-
-    init {
-        schoolAdapter.setList(schoolList)
-    }
 
     fun getSchools() {
         addDisposable(getSearchUseCase.buildUseCaseObservable(GetAllSchoolUseCase.Params(word.value.toString())),
             object : DisposableSingleObserver<List<SchoolInfo>>() {
                 override fun onSuccess(t: List<SchoolInfo>) {
-                    schoolList.clear()
-                    schoolList.addAll(t)
-                    schoolAdapter.notifyDataSetChanged()
-
+                    schoolItemList.value = ArrayList(t.toRecyclerItemList())
                     isLoading.value = false
                 }
                 override fun onError(e: Throwable) {
@@ -44,12 +38,16 @@ class SearchViewModel(
             })
     }
 
-    fun setSchoolInfo() {
-        with(schoolList[schoolAdapter.click.value!!]) {
-            val schoolInfo = SchoolInfo(school_name, school_locate, office_code, school_id)
-            insertSchoolInfo(schoolInfo)
-        }
-    }
+    private fun List<SchoolInfo>.toRecyclerItemList() = map { it.toViewModel() }
+
+    private fun SchoolInfo.toViewModel() = SchoolItemViewModel(this).toRecyclerItem()
+
+    private fun SchoolItemViewModel.toRecyclerItem() =
+            RecyclerItem(
+                    data = this,
+                    navigator = this@SearchViewModel,
+                    layoutId = R.layout.item_school
+            )
 
     private fun insertSchoolInfo(schoolInfo: SchoolInfo) {
         addDisposable(insertSchoolUseCase.buildUseCaseObservable(InsertSchoolUseCase.Params(schoolInfo)),
@@ -65,5 +63,9 @@ class SearchViewModel(
 
     fun searchClick() {
         searchEvent.call()
+    }
+
+    override fun onClickSchoolItem(schoolInfo: SchoolInfo) {
+        insertSchoolInfo(schoolInfo)
     }
 }

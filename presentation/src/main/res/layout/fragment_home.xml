@@ -210,7 +210,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:overScrollMode="never"
-                                app:adapter="@{viewModel.scheduleAdapter}"
+                                app:recyclerItems="@{viewModel.scheduleItemList}"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
 

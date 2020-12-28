@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
-                    app:adapter="@{viewModel.schoolAdapter}"
+                    app:recyclerItems="@{viewModel.schoolItemList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_school"/>
 

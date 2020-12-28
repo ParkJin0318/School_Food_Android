@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseActivity
 import com.meals.school_food.databinding.ActivitySearchBinding
@@ -28,19 +27,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            searchEvent.observe(this@SearchActivity, Observer {
+            searchEvent.observe(::getLifecycle) {
                 getSchools()
                 isLoading.value = true
-            })
-            schoolAdapter.click.observe(this@SearchActivity, Observer {
-                setSchoolInfo()
-            })
-            onSuccessEvent.observe(this@SearchActivity, Observer {
+            }
+            onSuccessEvent.observe(::getLifecycle) {
                 startActivityWithFinish(MainActivity::class.java)
-            })
-            onErrorEvent.observe(this@SearchActivity, Observer {
+            }
+            onErrorEvent.observe(::getLifecycle) {
                 toast(it.toString())
-            })
+            }
         }
     }
 

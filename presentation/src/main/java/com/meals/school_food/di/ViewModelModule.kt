@@ -13,5 +13,4 @@ val viewModelModule = module {
     viewModel { MenuViewModel(get()) }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { VersionViewModel(androidApplication()) }
-    viewModel { OpenSourceViewModel() }
 }

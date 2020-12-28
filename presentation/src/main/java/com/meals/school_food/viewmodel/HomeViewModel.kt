@@ -5,14 +5,12 @@ import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.MealInfo
 import com.meals.domain.model.ScheduleInfo
-import com.meals.domain.model.SchoolInfo
 import com.meals.domain.model.TimeInfo
-import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseViewModel
 import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.adapter.RecyclerItem
 import com.meals.school_food.widget.extension.*
-import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,15 +24,13 @@ class HomeViewModel(
     val time = MutableLiveData<String>()
     val timeInfo = MutableLiveData<TimeInfo>()
 
-    val scheduleAdapter = ScheduleAdapter()
-    private val scheduleList = ArrayList<ScheduleInfo>()
+    val scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
 
     val onScheduleDetailEvent = SingleLiveEvent<Unit>()
     val onMealDetailEvent = SingleLiveEvent<Unit>()
     val onErrorEvent = SingleLiveEvent<String>()
 
     init {
-        scheduleAdapter.setList(scheduleList)
         getMeal()
         getSchedule()
     }
@@ -75,10 +71,7 @@ class HomeViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(Date().monthDateFormat())),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
-                    scheduleList.clear()
-                    scheduleList.addAll(t)
-                    scheduleAdapter.notifyDataSetChanged()
-
+                    scheduleItemList.value = ArrayList(t.toRecyclerItemList())
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
@@ -86,6 +79,17 @@ class HomeViewModel(
                 }
             })
     }
+
+    private fun List<ScheduleInfo>.toRecyclerItemList() = map { it.toViewModel() }
+
+    private fun ScheduleInfo.toViewModel() = ScheduleItemViewModel(this).toRecyclerItem()
+
+    private fun ScheduleItemViewModel.toRecyclerItem() =
+            RecyclerItem(
+                    data = this,
+                    navigator = this@HomeViewModel,
+                    layoutId = R.layout.item_schedule
+            )
 
     fun onScheduleDetailClick() {
         onScheduleDetailEvent.call()

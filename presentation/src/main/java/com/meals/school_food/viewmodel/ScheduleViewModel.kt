@@ -3,9 +3,10 @@ package com.meals.school_food.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.ScheduleInfo
+import com.meals.school_food.R
 import com.meals.school_food.base.BaseViewModel
+import com.meals.school_food.widget.adapter.RecyclerItem
 import com.meals.school_food.widget.extension.dayDateFormat
-import com.meals.school_food.widget.recyclerview.adapter.ScheduleAdapter
 import io.reactivex.observers.DisposableSingleObserver
 import java.util.*
 import kotlin.collections.ArrayList
@@ -13,13 +14,12 @@ import kotlin.collections.ArrayList
 class ScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
+
     val information = MutableLiveData<String>()
 
-    private val scheduleList = ArrayList<ScheduleInfo>()
-    val scheduleAdapter = ScheduleAdapter()
+    val scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
 
     init {
-        scheduleAdapter.setList(scheduleList)
         getSchedule(Date().dayDateFormat())
     }
 
@@ -27,9 +27,7 @@ class ScheduleViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(date)),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
-                    scheduleList.clear()
-                    scheduleList.addAll(t)
-                    scheduleAdapter.notifyDataSetChanged()
+                    scheduleItemList.value = ArrayList(t.toRecyclerItemList())
 
                     information.value = null
                     isLoading.value = true
@@ -41,11 +39,20 @@ class ScheduleViewModel(
             })
     }
 
+    private fun List<ScheduleInfo>.toRecyclerItemList() = map { it.toViewModel() }
+
+    private fun ScheduleInfo.toViewModel() = ScheduleItemViewModel(this).toRecyclerItem()
+
+    private fun ScheduleItemViewModel.toRecyclerItem() =
+            RecyclerItem(
+                    data = this,
+                    navigator = this@ScheduleViewModel,
+                    layoutId = R.layout.item_schedule
+            )
+
     fun calendarClick(year : Int, month : Int, day : Int) {
         val date = "%04d%02d%02d".format(year, month + 1, day)
         getSchedule(date)
-        scheduleList.clear()
-        scheduleAdapter.notifyDataSetChanged()
         isLoading.value = false
         information.value = null
     }

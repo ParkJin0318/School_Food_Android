@@ -1,7 +1,6 @@
 package com.meals.school_food.view.activity
 
 import android.os.Handler
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseActivity
 import com.meals.school_food.databinding.ActivitySplashBinding
@@ -29,12 +28,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            onSuccessEvent.observe(this@SplashActivity, Observer {
+            onSuccessEvent.observe(::getLifecycle) {
                 handler.postDelayed(runnableMain, 1000)
-            })
-            onErrorEvent.observe(this@SplashActivity, Observer {
+            }
+            onErrorEvent.observe(::getLifecycle) {
                 handler.postDelayed(runnableSearch, 1000)
-            })
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.meals.school_food.view.activity
 
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseActivity
 import com.meals.school_food.databinding.ActivityVersionBinding
@@ -17,9 +16,9 @@ class VersionActivity : BaseActivity<ActivityVersionBinding, VersionViewModel>()
 
     override fun observerViewModel() {
         with(viewModel) {
-            backEvent.observe(this@VersionActivity, Observer {
+            backEvent.observe(::getLifecycle) {
                 onBackPressed()
-            })
+            }
         }
     }
 }

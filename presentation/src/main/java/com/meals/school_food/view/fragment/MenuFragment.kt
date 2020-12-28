@@ -1,10 +1,8 @@
 package com.meals.school_food.view.fragment
 
-import androidx.lifecycle.Observer
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseFragment
 import com.meals.school_food.databinding.FragmentMenuBinding
-import com.meals.school_food.view.activity.OpenSourceActivity
 import com.meals.school_food.view.activity.SearchActivity
 import com.meals.school_food.view.activity.VersionActivity
 import com.meals.school_food.viewmodel.MenuViewModel
@@ -21,15 +19,12 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            schoolChangeEvent.observe(this@MenuFragment, Observer {
+            schoolChangeEvent.observe(::getLifecycle) {
                 startActivity(SearchActivity::class.java)
-            })
-            openSourceEvent.observe(this@MenuFragment, Observer {
-                startActivity(OpenSourceActivity::class.java)
-            })
-            versionEvent.observe(this@MenuFragment, Observer {
+            }
+            versionEvent.observe(::getLifecycle) {
                 startActivity(VersionActivity::class.java)
-            })
+            }
         }
     }
 }

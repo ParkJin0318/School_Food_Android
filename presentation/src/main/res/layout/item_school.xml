@@ -5,7 +5,11 @@
     <data>
         <variable
             name="viewModel"
-            type="com.meals.school_food.widget.recyclerview.viewmodel.SchoolItemViewModel"/>
+            type="com.meals.school_food.viewmodel.SchoolItemViewModel"/>
+
+        <variable
+            name="navigator"
+            type="com.meals.school_food.widget.navigator.SchoolItemNavigator" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -14,7 +18,8 @@
         app:cardBackgroundColor="@color/colorWhite"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:onClick="@{() -> navigator.onClickSchoolItem(viewModel.item)}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +62,7 @@
                         android:focusableInTouchMode="true"
                         android:singleLine="true"
                         android:fontFamily="@font/nanum_square_round"
-                        android:text="@{viewModel.name}"
+                        android:text="@{viewModel.item.school_name}"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
             </LinearLayout>
@@ -97,7 +102,7 @@
                         android:focusableInTouchMode="true"
                         android:singleLine="true"
                         android:fontFamily="@font/nanum_square_round"
-                        android:text="@{viewModel.address}"
+                        android:text="@{viewModel.item.school_locate}"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
             </LinearLayout>

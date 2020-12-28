@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="viewModel"
-            type="com.meals.school_food.widget.recyclerview.viewmodel.ScheduleItemViewModel"/>
+            type="com.meals.school_food.viewmodel.ScheduleItemViewModel" />
     </data>
 
     <LinearLayout
@@ -24,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.date}"
+                android:text="@{viewModel.item.date}"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/nanum_square_round"
@@ -41,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.name}"
+                android:text="@{viewModel.item.name}"
                 android:fontFamily="@font/nanum_square_round"
                 android:textColor="@color/colorBlack"
                 tools:text="토요일 휴업"/>

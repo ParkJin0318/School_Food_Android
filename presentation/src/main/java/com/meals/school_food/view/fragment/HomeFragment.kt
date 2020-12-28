@@ -1,6 +1,5 @@
 package com.meals.school_food.view.fragment
 
-import androidx.lifecycle.Observer
 import com.meals.domain.model.TimeInfo
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseFragment
@@ -8,11 +7,8 @@ import com.meals.school_food.databinding.FragmentHomeBinding
 import com.meals.school_food.view.activity.MealActivity
 import com.meals.school_food.view.activity.ScheduleActivity
 import com.meals.school_food.viewmodel.HomeViewModel
-import com.meals.school_food.widget.extension.getFormatDate
-import com.meals.school_food.widget.extension.getTime
 import com.meals.school_food.widget.extension.startActivity
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import java.util.*
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
@@ -24,13 +20,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            onScheduleDetailEvent.observe(this@HomeFragment, Observer {
+            onScheduleDetailEvent.observe(::getLifecycle) {
                 startActivity(ScheduleActivity::class.java)
-            })
-            onMealDetailEvent.observe(this@HomeFragment, Observer {
+            }
+            onMealDetailEvent.observe(::getLifecycle) {
                 startActivity(MealActivity::class.java)
-            })
-            timeInfo.observe(this@HomeFragment, Observer {
+            }
+            timeInfo.observe(::getLifecycle) {
                 when (it) {
                     TimeInfo.BREAKFAST -> {
                         time.value = getString(R.string.breakfast)
@@ -45,12 +41,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                         binding.mealImage.setImageResource(R.drawable.ic_dinner)
                     }
                 }
-            })
-            onErrorEvent.observe(this@HomeFragment, Observer {
+            }
+            onErrorEvent.observe(::getLifecycle) {
                 mealText.value = it
                 time.value = "X"
                 binding.mealImage.setImageResource(R.drawable.ic_error)
-            })
+            }
         }
     }
 
