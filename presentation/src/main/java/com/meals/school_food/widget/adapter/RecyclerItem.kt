@@ -5,12 +5,12 @@ import androidx.databinding.ViewDataBinding
 import com.meals.school_food.BR
 
 data class RecyclerItem(
-        val data: Any,
+        val viewModel: Any,
         val navigator: Any,
         @LayoutRes val layoutId: Int
 ) {
     fun bind(binding: ViewDataBinding) {
-        binding.setVariable(BR.viewModel, data)
+        binding.setVariable(BR.viewModel, viewModel)
         binding.setVariable(BR.navigator, navigator)
     }
 }

@@ -45,7 +45,7 @@ class ScheduleViewModel(
 
     private fun ScheduleItemViewModel.toRecyclerItem() =
             RecyclerItem(
-                    data = this,
+                    viewModel = this,
                     navigator = this@ScheduleViewModel,
                     layoutId = R.layout.item_schedule
             )

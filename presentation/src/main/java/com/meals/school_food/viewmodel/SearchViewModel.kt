@@ -44,7 +44,7 @@ class SearchViewModel(
 
     private fun SchoolItemViewModel.toRecyclerItem() =
             RecyclerItem(
-                    data = this,
+                    viewModel = this,
                     navigator = this@SearchViewModel,
                     layoutId = R.layout.item_school
             )
