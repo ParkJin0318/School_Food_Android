@@ -85,22 +85,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.version}"
+                    android:text="@{viewModel.versionText}"
                     android:fontFamily="@font/nanum_square_round"
                     tools:text="1.0.0"/>
             </LinearLayout>
-
-            <!--
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="스토어로 이동"
-                android:fontFamily="@font/nanum_square_round"
-                android:textColor="@android:color/white"
-                android:background="@drawable/background_primary"/>
-                -->
         </LinearLayout>
     </LinearLayout>
 </layout>

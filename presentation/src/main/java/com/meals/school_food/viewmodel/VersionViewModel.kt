@@ -11,7 +11,7 @@ class VersionViewModel(
 ) : BaseViewModel() {
 
     // View Binding LiveData
-    val version = MutableLiveData<String>()
+    val versionText = MutableLiveData<String>()
 
     // ViewModel Logic LiveData
     private val _onBackEvent = MutableLiveData<Event<Boolean>>()
@@ -20,7 +20,7 @@ class VersionViewModel(
 
 
     init {
-        version.value = getAppVersion()
+        versionText.value = getAppVersion()
     }
 
     private fun getAppVersion(): String {

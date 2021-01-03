@@ -34,8 +34,6 @@ class ScheduleViewModel(
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
                     _scheduleItemList.value = ArrayList(t.toRecyclerItemList())
-
-                    guideText.value = null
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
@@ -60,6 +58,7 @@ class ScheduleViewModel(
         val date = "%04d%02d%02d".format(year, month + 1, day)
         isLoading.value = false
         guideText.value = null
+        _scheduleItemList.value = ArrayList(ArrayList<ScheduleInfo>().toRecyclerItemList())
         getSchedule(date)
     }
 }
