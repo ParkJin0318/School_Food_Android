@@ -20,34 +20,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            onScheduleDetailEvent.observe(::getLifecycle) {
-                startActivity(ScheduleActivity::class.java)
-            }
-            onMealDetailEvent.observe(::getLifecycle) {
-                startActivity(MealActivity::class.java)
-            }
             timeInfo.observe(::getLifecycle) {
                 when (it) {
                     TimeInfo.BREAKFAST -> {
-                        time.value = getString(R.string.breakfast)
+                        timeText.value = getString(R.string.breakfast)
                         binding.mealImage.setImageResource(R.drawable.ic_breakfast)
                     }
                     TimeInfo.LUNCH -> {
-                        time.value = getString(R.string.lunch)
+                        timeText.value = getString(R.string.lunch)
                         binding.mealImage.setImageResource(R.drawable.ic_lunch)
                     }
                     TimeInfo.DINNER -> {
-                        time.value = getString(R.string.dinner)
+                        timeText.value = getString(R.string.dinner)
                         binding.mealImage.setImageResource(R.drawable.ic_dinner)
+                    }
+                    else -> {
+                        timeText.value = "오류"
+                        binding.mealImage.setImageResource(R.drawable.ic_error)
                     }
                 }
             }
+            onScheduleDetailEvent.observe(::getLifecycle) {
+                it.getContentIfNotHandled()?.let {
+                    startActivity(ScheduleActivity::class.java)
+                }
+            }
+            onMealDetailEvent.observe(::getLifecycle) {
+                it.getContentIfNotHandled()?.let {
+                    startActivity(MealActivity::class.java)
+                }
+            }
             onErrorEvent.observe(::getLifecycle) {
-                mealText.value = it
-                time.value = "X"
-                binding.mealImage.setImageResource(R.drawable.ic_error)
+                it.getContentIfNotHandled()?.let { throwable ->
+                    mealText.value = throwable.message
+                    timeText.value = "오류"
+                    binding.mealImage.setImageResource(R.drawable.ic_error)
+                }
             }
         }
     }
-
 }

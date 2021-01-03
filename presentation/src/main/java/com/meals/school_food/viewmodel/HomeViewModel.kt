@@ -1,5 +1,6 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetMealUseCase
 import com.meals.domain.usecase.GetScheduleUseCase
@@ -8,7 +9,7 @@ import com.meals.domain.model.ScheduleInfo
 import com.meals.domain.model.TimeInfo
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseViewModel
-import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.Event
 import com.meals.school_food.widget.adapter.RecyclerItem
 import com.meals.school_food.widget.extension.*
 import io.reactivex.observers.DisposableSingleObserver
@@ -19,16 +20,32 @@ class HomeViewModel(
     private val getMealUseCase: GetMealUseCase,
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
+
+    // View Binding LiveData
     val mealText = MutableLiveData<String>()
+    val timeText = MutableLiveData<String>()
 
-    val time = MutableLiveData<String>()
-    val timeInfo = MutableLiveData<TimeInfo>()
+    // ViewModel Logic LiveData
+    private val _scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    val scheduleItemList: LiveData<ArrayList<RecyclerItem>>
+        get() = _scheduleItemList
 
-    val scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    private val _timeInfo = MutableLiveData<TimeInfo>()
+    val timeInfo: LiveData<TimeInfo>
+        get() = _timeInfo
 
-    val onScheduleDetailEvent = SingleLiveEvent<Unit>()
-    val onMealDetailEvent = SingleLiveEvent<Unit>()
-    val onErrorEvent = SingleLiveEvent<String>()
+    private val _onScheduleDetailEvent = MutableLiveData<Event<Boolean>>()
+    val onScheduleDetailEvent: LiveData<Event<Boolean>>
+        get() = _onScheduleDetailEvent
+
+    private val _onMealDetailEvent = MutableLiveData<Event<Boolean>>()
+    val onMealDetailEvent: LiveData<Event<Boolean>>
+        get() = _onMealDetailEvent
+
+    private val _onErrorEvent = MutableLiveData<Event<Throwable>>()
+    val onErrorEvent: LiveData<Event<Throwable>>
+        get() = _onErrorEvent
+
 
     init {
         getMeal()
@@ -43,7 +60,7 @@ class HomeViewModel(
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-                    onErrorEvent.value = e.message
+                    _onErrorEvent.value = Event(e)
                     isLoading.value = true
                 }
             })
@@ -54,15 +71,15 @@ class HomeViewModel(
         when {
             now.before("08:20".getTime()) -> {
                 mealText.value = mealInfo.breakfast
-                timeInfo.value = TimeInfo.BREAKFAST
+                _timeInfo.value = TimeInfo.BREAKFAST
             }
             now.before("13:20".getTime()) -> {
                 mealText.value = mealInfo.lunch
-                timeInfo.value = TimeInfo.LUNCH
+                _timeInfo.value = TimeInfo.LUNCH
             }
             else -> {
                 mealText.value = mealInfo.dinner
-                timeInfo.value = TimeInfo.DINNER
+                _timeInfo.value = TimeInfo.DINNER
             }
         }
     }
@@ -71,7 +88,7 @@ class HomeViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(Date().monthDateFormat())),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
-                    scheduleItemList.value = ArrayList(t.toRecyclerItemList())
+                    _scheduleItemList.value = ArrayList(t.toRecyclerItemList())
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
@@ -92,10 +109,10 @@ class HomeViewModel(
             )
 
     fun onScheduleDetailClick() {
-        onScheduleDetailEvent.call()
+        _onScheduleDetailEvent.value = Event(true)
     }
 
     fun onMealDetailClick() {
-        onMealDetailEvent.call()
+        _onMealDetailEvent.value = Event(true)
     }
 }

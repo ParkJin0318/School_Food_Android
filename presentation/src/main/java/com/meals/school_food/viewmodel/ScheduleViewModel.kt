@@ -1,5 +1,6 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetScheduleUseCase
 import com.meals.domain.model.ScheduleInfo
@@ -15,9 +16,14 @@ class ScheduleViewModel(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : BaseViewModel() {
 
-    val information = MutableLiveData<String>()
+    // View Binding LiveData
+    val guideText = MutableLiveData<String>()
 
-    val scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    // ViewModel Logic LiveData
+    private val _scheduleItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    val scheduleItemList: LiveData<ArrayList<RecyclerItem>>
+        get() = _scheduleItemList
+
 
     init {
         getSchedule(Date().dayDateFormat())
@@ -27,13 +33,13 @@ class ScheduleViewModel(
         addDisposable(getScheduleUseCase.buildUseCaseObservable(GetScheduleUseCase.Params(date)),
             object : DisposableSingleObserver<List<ScheduleInfo>>() {
                 override fun onSuccess(t: List<ScheduleInfo>) {
-                    scheduleItemList.value = ArrayList(t.toRecyclerItemList())
+                    _scheduleItemList.value = ArrayList(t.toRecyclerItemList())
 
-                    information.value = null
+                    guideText.value = null
                     isLoading.value = true
                 }
                 override fun onError(e: Throwable) {
-                    information.value = "학사일정이 없습니다"
+                    guideText.value = "학사일정이 없습니다"
                     isLoading.value = true
                 }
             })
@@ -52,8 +58,8 @@ class ScheduleViewModel(
 
     fun calendarClick(year : Int, month : Int, day : Int) {
         val date = "%04d%02d%02d".format(year, month + 1, day)
-        getSchedule(date)
         isLoading.value = false
-        information.value = null
+        guideText.value = null
+        getSchedule(date)
     }
 }

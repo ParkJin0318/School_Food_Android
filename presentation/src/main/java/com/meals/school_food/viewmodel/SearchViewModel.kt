@@ -1,12 +1,13 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.usecase.GetAllSchoolUseCase
 import com.meals.domain.model.SchoolInfo
 import com.meals.domain.usecase.InsertSchoolUseCase
 import com.meals.school_food.R
 import com.meals.school_food.base.BaseViewModel
-import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.Event
 import com.meals.school_food.widget.adapter.RecyclerItem
 import com.meals.school_food.widget.navigator.SchoolItemNavigator
 import io.reactivex.observers.DisposableCompletableObserver
@@ -17,23 +18,32 @@ class SearchViewModel(
     private val insertSchoolUseCase: InsertSchoolUseCase
 ): BaseViewModel(), SchoolItemNavigator {
 
-    val word = MutableLiveData<String>()
-    val searchEvent = SingleLiveEvent<Unit>()
+    // View Binding LiveData
+    val schoolNameText = MutableLiveData<String>()
 
-    val schoolItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    // ViewModel Logic LiveData
+    private val _schoolItemList = MutableLiveData<ArrayList<RecyclerItem>>()
+    val schoolItemList: LiveData<ArrayList<RecyclerItem>>
+        get() = _schoolItemList
 
-    val onSuccessEvent = SingleLiveEvent<Unit>()
-    val onErrorEvent = SingleLiveEvent<String>()
+    private val _onSuccessEvent = MutableLiveData<Event<Boolean>>()
+    val onSuccessEvent: LiveData<Event<Boolean>>
+        get() = _onSuccessEvent
+
+    private val _onErrorEvent = MutableLiveData<Event<Throwable>>()
+    val onErrorEvent: LiveData<Event<Throwable>>
+        get() = _onErrorEvent
+
 
     fun getSchools() {
-        addDisposable(getSearchUseCase.buildUseCaseObservable(GetAllSchoolUseCase.Params(word.value.toString())),
+        addDisposable(getSearchUseCase.buildUseCaseObservable(GetAllSchoolUseCase.Params(schoolNameText.value.toString())),
             object : DisposableSingleObserver<List<SchoolInfo>>() {
                 override fun onSuccess(t: List<SchoolInfo>) {
-                    schoolItemList.value = ArrayList(t.toRecyclerItemList())
+                    _schoolItemList.value = ArrayList(t.toRecyclerItemList())
                     isLoading.value = false
                 }
                 override fun onError(e: Throwable) {
-                    onErrorEvent.value = e.message
+                    _onErrorEvent.value = Event(e)
                 }
             })
     }
@@ -53,16 +63,12 @@ class SearchViewModel(
         addDisposable(insertSchoolUseCase.buildUseCaseObservable(InsertSchoolUseCase.Params(schoolInfo)),
             object : DisposableCompletableObserver() {
                 override fun onComplete() {
-                    onSuccessEvent.call()
+                    _onSuccessEvent.value = Event(true)
                 }
                 override fun onError(e: Throwable) {
-                    onErrorEvent.value = e.message
+                    _onErrorEvent.value = Event(e)
                 }
             })
-    }
-
-    fun searchClick() {
-        searchEvent.call()
     }
 
     override fun onClickSchoolItem(schoolInfo: SchoolInfo) {

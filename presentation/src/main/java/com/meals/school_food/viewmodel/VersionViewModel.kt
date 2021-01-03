@@ -1,16 +1,23 @@
 package com.meals.school_food.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.meals.school_food.base.BaseViewModel
-import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.Event
 
 class VersionViewModel(
     private val application: Application
 ) : BaseViewModel() {
 
+    // View Binding LiveData
     val version = MutableLiveData<String>()
-    val backEvent = SingleLiveEvent<Unit>()
+
+    // ViewModel Logic LiveData
+    private val _onBackEvent = MutableLiveData<Event<Boolean>>()
+    val onBackEvent: LiveData<Event<Boolean>>
+        get() = _onBackEvent
+
 
     init {
         version.value = getAppVersion()
@@ -22,6 +29,6 @@ class VersionViewModel(
     }
 
     fun backClick() {
-        backEvent.call()
+        _onBackEvent.value = Event(true)
     }
 }

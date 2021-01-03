@@ -46,8 +46,8 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.date}"
-                android:onClick="@{()->viewModel.dateClick()}"
+                android:text="@{viewModel.dateText}"
+                android:onClick="@{()->viewModel.onDateChangeClick()}"
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/background_primary"
                 tools:text="2020년 7월 1일" />
@@ -118,7 +118,7 @@
                                 android:textSize="12sp"
                                 android:textColor="@color/colorText"
                                 android:fontFamily="@font/nanum_square_round"
-                                android:text="@{viewModel.breakfast}"/>
+                                android:text="@{viewModel.breakfastText}"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -192,7 +192,7 @@
                                 android:textSize="12sp"
                                 android:textColor="@color/colorText"
                                 android:fontFamily="@font/nanum_square_round"
-                                android:text="@{viewModel.lunch}"/>
+                                android:text="@{viewModel.lunchText}"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -266,7 +266,7 @@
                                 android:textSize="12sp"
                                 android:textColor="@color/colorText"
                                 android:fontFamily="@font/nanum_square_round"
-                                android:text="@{viewModel.dinner}"/>
+                                android:text="@{viewModel.dinnerText}"/>
                         </LinearLayout>
                     </LinearLayout>
 

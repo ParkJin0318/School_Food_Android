@@ -16,8 +16,10 @@ class VersionActivity : BaseActivity<ActivityVersionBinding, VersionViewModel>()
 
     override fun observerViewModel() {
         with(viewModel) {
-            backEvent.observe(::getLifecycle) {
-                onBackPressed()
+            onBackEvent.observe(::getLifecycle) {
+                it.getContentIfNotHandled()?.let {
+                    onBackPressed()
+                }
             }
         }
     }

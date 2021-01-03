@@ -19,11 +19,15 @@ class MenuFragment : BaseFragment<FragmentMenuBinding, MenuViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            schoolChangeEvent.observe(::getLifecycle) {
-                startActivity(SearchActivity::class.java)
+            onSchoolChangeEvent.observe(::getLifecycle) {
+                it.getContentIfNotHandled()?.let {
+                    startActivity(SearchActivity::class.java)
+                }
             }
-            versionEvent.observe(::getLifecycle) {
-                startActivity(VersionActivity::class.java)
+            onVersionEvent.observe(::getLifecycle) {
+                it.getContentIfNotHandled()?.let {
+                    startActivity(VersionActivity::class.java)
+                }
             }
         }
     }

@@ -27,15 +27,15 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override fun observerViewModel() {
         with(viewModel) {
-            searchEvent.observe(::getLifecycle) {
-                getSchools()
-                isLoading.value = true
-            }
             onSuccessEvent.observe(::getLifecycle) {
-                startActivityWithFinish(MainActivity::class.java)
+                it.getContentIfNotHandled()?.let {
+                    startActivityWithFinish(MainActivity::class.java)
+                }
             }
             onErrorEvent.observe(::getLifecycle) {
-                toast(it.toString())
+                it.getContentIfNotHandled()?.let { throwable ->
+                    toast(throwable.toString())
+                }
             }
         }
     }
@@ -43,7 +43,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     private fun onSearchEvent() {
         binding.searchEditText.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.searchClick()
+                viewModel.getSchools()
+                viewModel.isLoading.value = true
 
                 val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)

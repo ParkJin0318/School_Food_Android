@@ -36,7 +36,7 @@
                 android:background="@null"
                 android:hint="@string/input_school_name"
                 android:singleLine="true"
-                android:text="@={viewModel.word}"
+                android:text="@={viewModel.schoolNameText}"
                 android:textSize="14sp"
                 android:textColorHint="@color/colorText"
                 android:textColor="@color/colorText"

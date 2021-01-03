@@ -29,10 +29,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun observerViewModel() {
         with(viewModel) {
             onSuccessEvent.observe(::getLifecycle) {
-                handler.postDelayed(runnableMain, 1000)
+                it.getContentIfNotHandled()?.let {
+                    handler.postDelayed(runnableMain, 1000)
+                }
             }
             onErrorEvent.observe(::getLifecycle) {
-                handler.postDelayed(runnableSearch, 1000)
+                it.getContentIfNotHandled()?.let {
+                    handler.postDelayed(runnableSearch, 1000)
+                }
             }
         }
     }

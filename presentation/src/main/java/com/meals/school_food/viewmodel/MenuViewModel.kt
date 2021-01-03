@@ -1,21 +1,30 @@
 package com.meals.school_food.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.meals.domain.model.SchoolInfo
 import com.meals.domain.usecase.GetSchoolUseCase
 import com.meals.school_food.base.BaseViewModel
-import com.meals.school_food.widget.SingleLiveEvent
+import com.meals.school_food.widget.Event
 import io.reactivex.observers.DisposableSingleObserver
 
 class MenuViewModel(
     private val getSchoolUseCase: GetSchoolUseCase
 ): BaseViewModel() {
 
-    val schoolName = MutableLiveData<String>()
-    val schoolAddress = MutableLiveData<String>()
+    // View Binding LiveData
+    val schoolNameText = MutableLiveData<String>()
+    val schoolAddressText = MutableLiveData<String>()
 
-    val schoolChangeEvent = SingleLiveEvent<Unit>()
-    val versionEvent = SingleLiveEvent<Unit>()
+    // ViewModel Logic LiveData
+    private val _onSchoolChangeEvent = MutableLiveData<Event<Boolean>>()
+    val onSchoolChangeEvent: LiveData<Event<Boolean>>
+        get() = _onSchoolChangeEvent
+
+    private val _onVersionEvent = MutableLiveData<Event<Boolean>>()
+    val onVersionEvent: LiveData<Event<Boolean>>
+        get() = _onVersionEvent
+
 
     init {
         getSchool()
@@ -24,18 +33,18 @@ class MenuViewModel(
     private fun getSchool() {
         addDisposable(getSchoolUseCase.buildUseCaseObservable(), object : DisposableSingleObserver<SchoolInfo>() {
             override fun onSuccess(t: SchoolInfo) {
-                schoolName.value = t.school_name
-                schoolAddress.value = t.school_locate
+                schoolNameText.value = t.school_name
+                schoolAddressText.value = t.school_locate
             }
             override fun onError(e: Throwable) { }
         })
     }
 
-    fun changeClick() {
-        schoolChangeEvent.call()
+    fun onSchoolChangeClick() {
+        _onSchoolChangeEvent.value = Event(true)
     }
 
-    fun versionClick() {
-        versionEvent.call()
+    fun onVersionClick() {
+        _onVersionEvent.value = Event(true)
     }
 }

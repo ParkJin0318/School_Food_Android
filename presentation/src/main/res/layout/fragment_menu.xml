@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:onClick="@{()->viewModel.changeClick()}"
+                android:onClick="@{()->viewModel.onSchoolChangeClick()}"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.schoolName}"
+                        android:text="@{viewModel.schoolNameText}"
                         android:fontFamily="@font/nanum_square_round"
                         android:textColor="?android:attr/textColorPrimary"
                         tools:text="대구소프트웨어고등학교" />
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.schoolAddress}"
+                        android:text="@{viewModel.schoolAddressText}"
                         android:fontFamily="@font/nanum_square_round"
                         android:textColor="@color/colorText"
                         tools:text="대구광역시 달성군 구지면 창리로11길 93" />
@@ -143,7 +143,7 @@
                     android:layout_height="70dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:onClick="@{()->viewModel.versionClick()}">
+                    android:onClick="@{()->viewModel.onVersionClick()}">
 
                     <ImageView
                         android:id="@+id/imageView4"

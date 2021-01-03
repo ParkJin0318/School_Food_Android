@@ -120,10 +120,10 @@
                                         android:layout_weight="1"
                                         android:fontFamily="@font/nanum_square_round"
                                         android:textAlignment="center"
-                                        android:text="@{viewModel.time}"
+                                        android:text="@{viewModel.timeText}"
                                         android:textSize="14sp"
                                         android:textColor="@color/colorText"
-                                        tools:text="X" />
+                                        tools:text="오류" />
                                 </LinearLayout>
 
                                 <LinearLayout
